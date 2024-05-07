@@ -8,7 +8,10 @@ published: true
 
 # Escaping using the keyboard “ESC” in React
 
-Or how to hide a modal using the chad keyboard instead of the virgin close button.
+This is a part of the implementatin logic for my web portfolio. You can visit it at <a target="_blank" href="https://miulerbm.vercel.app/">/miulerbm</a>.
+
+The ability to close the form modal when pressing “Esc”, for doing this, I used a useEffect hook, which listens to the changes on the exitModal function to execute.
+In this context, exitModal is a global function defined using the "createContext" function from React.
 
 ```tsx
 "use client";
@@ -58,10 +61,6 @@ function Modal() {
 
 export default Modal;
 ```
-
-New feature added to the post:
-
-The ability to close the form modal when pressing “Esc”, for doing this, I used a useEffect hook, which listens to the changes on the exitModal function to execute.
 
 - First, we define a callback function called handleKeyDown, which will receive a keyboardEvent as input and if the pressed key is “Escape” will execute the exitModal function, which is provided by the GlobalStateContext.
 - We also need to add an event listener to know when a key is being pressed. And then, when the component is unmounted, we need to remove that event listener.
