@@ -1,0 +1,67 @@
+---
+title: Escaping using the keyboard “ESC” in React
+description: Or how to hide a modal using the chad keyboard instead of the virgin close button.
+date: 2024-04-23
+tags: ["react", "code"]
+published: true
+---
+
+# Escaping using the keyboard “ESC” in React
+
+Or how to hide a modal using the chad keyboard instead of the virgin close button.
+
+```tsx
+"use client";
+
+import Contact from "@/static/Contact";
+import Close from "../menu/elements/Close";
+import { useGlobalState } from "@/contexts/GlobalStateContext";
+import { useEffect } from "react";
+
+function Modal() {
+  const { isModalOpen, exitModal } = useGlobalState();
+
+  // Adding a feature for closing the modal with ESC:
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        exitModal();
+      }
+    }
+
+    // Adding event listener:
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      // Remove the event listener when component is unmounted:
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [exitModal]);
+
+  return (
+    <>
+      {isModalOpen ? (
+        <>
+          <div className="fixed top-0 right-0 p-2 z-[101]" onClick={exitModal}>
+            <Close />
+          </div>
+          <div className="fixed text-white text-4xl  bg-black backdrop-blur-md bg-opacity-40 w-full h-screen min-h-screen z-[100]">
+            <Contact />
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
+    </>
+  );
+}
+
+export default Modal;
+```
+
+New feature added to the post:
+
+The ability to close the form modal when pressing “Esc”, for doing this, I used a useEffect hook, which listens to the changes on the exitModal function to execute.
+
+- First, we define a callback function called handleKeyDown, which will receive a keyboardEvent as input and if the pressed key is “Escape” will execute the exitModal function, which is provided by the GlobalStateContext.
+- We also need to add an event listener to know when a key is being pressed. And then, when the component is unmounted, we need to remove that event listener.

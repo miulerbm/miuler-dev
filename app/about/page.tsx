@@ -32,13 +32,12 @@ export default async function AboutPage() {
           </p>
         </div>
         <p className="text-muted-foreground text-lg text-pretty py-4">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi sapiente
-          deserunt explicabo expedita in qui neque culpa eos tempore dolorum
-          porro ex voluptates, rerum dicta sit doloribus saepe suscipit
-          doloremque. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Modi sapiente deserunt explicabo expedita in qui neque culpa eos
-          tempore dolorum porro ex voluptates, rerum dicta sit doloribus saepe
-          suscipit doloremque.
+          I&apos;m a frontend developer with a bachelor&apos;s degree in
+          Mechatronics Engineering. So far I&apos;ve been working with an
+          amazing team at Gope, a peruvian startup where we&apos;re building an
+          application for connecting people and different recreational
+          activities such as tours, adventures, extreme sports, etc. My journey
+          has just begun. Stay tuned for what&apos;s coming in the future!
         </p>
       </div>
     </div>
