@@ -30,7 +30,7 @@ const SiteHeader = () => {
               </div>
             </Link>
             <Link
-              href={siteConfig.links.twitter}
+              href={siteConfig.links.linkedin}
               target="_blank"
               rel="noreferrer"
             >
@@ -40,8 +40,8 @@ const SiteHeader = () => {
                   "w-10 px-0 hidden sm:inline-flex"
                 )}
               >
-                <Icons.twitter className="h-4 w-4" />
-                <span className="sr-only">Twitter</span>
+                <Icons.linkedin className="h-4 w-4" />
+                <span className="sr-only">LinkedIn</span>
               </div>
             </Link>
             <ModeToggle />

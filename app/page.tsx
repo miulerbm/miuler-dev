@@ -15,13 +15,15 @@ export default function Home() {
             Hello, I&apos;m Miuler
           </h1>
           <p className="max-w-[42rem] mx-auto text-muted-foreground sm:text-xl text-balance">
-            Welcome to my blog. Built using Tailwind, ShadCN, Velite and Nextjs
-            14.
+            Welcome to my blog. Here I post about web dev stuff. Enjoy!
           </p>
-          <div className="flex flex-col gap-4 justify-center sm:flex-row">
+          <div className="flex flex-col gap-4 justify-center sm:flex-row ">
             <Link
               href="/blog"
-              className={cn(buttonVariants({ size: "lg" }), "w-full sm:w-fit")}
+              className={cn(
+                buttonVariants({ size: "lg" }),
+                "w-full sm:w-fit hover:scale-105"
+              )}
             >
               View my blog
             </Link>
@@ -31,7 +33,7 @@ export default function Home() {
               rel="noreferrer"
               className={cn(
                 buttonVariants({ variant: "outline", size: "lg" }),
-                "w-full sm:w-fit"
+                "w-full sm:w-fit hover:scale-105"
               )}
             >
               GitHub

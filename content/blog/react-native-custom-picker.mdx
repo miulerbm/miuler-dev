@@ -1,0 +1,122 @@
+---
+title: Example of a Year Picker in React Native
+description: Using the react-native-picker/picker library to implement a custom picker.
+date: 2024-04-06
+tags: ["code", "react", "react-native"]
+published: true
+---
+
+# Intro
+
+The default picker given by the react-native picker library is not as customizable as we would want it to be.
+For addressing this issue we can define some properties. For example, hiding the default picker element.
+
+## Code Example
+
+```tsx
+import { View, Text, TouchableOpacity } from "react-native";
+import React, { useState, useRef } from "react";
+import { Picker } from "@react-native-picker/picker";
+
+const renderYears = () =>
+  [
+    ...Array.from(
+      { length: new Date().getFullYear() - 1900 },
+      (value, index) => 1900 + index
+    ),
+  ]
+    .reverse()
+    .map((n) => <Picker.Item key={n + ""} label={n + ""} value={n + ""} />);
+
+const YearPicker = () => {
+  const ref = useRef();
+  const [selectedYear, setSelectedYear] = useState();
+
+  const handleOpenPicker = () => {
+    ref.current.focus();
+  };
+
+  const handleClosePicker = () => {
+    ref.current.blur();
+  };
+
+  return (
+    <>
+      <TouchableOpacity
+        onPress={handleOpenPicker}
+        style={{
+          backgroundColor: "pink",
+          height: 48,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Text>Select Year</Text>
+        <Picker
+          style={{ display: "none", opacity: 0, height: 0, width: 0 }}
+          ref={ref}
+          selectedValue={selectedYear}
+          onValueChange={(v, i) => setSelectedYear(v)}
+        >
+          {renderYears()}
+        </Picker>
+      </TouchableOpacity>
+      <Text>{selectedYear}</Text>
+    </>
+  );
+};
+
+export default YearPicker;
+```
+
+With this approach, we can use the React Native picker library and give the default picker a more detailed styling. With this we have a modular custom component which we can manage as we need.
+For example. A language picker:
+
+```tsx
+<View
+  style={{
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderBottomColor: colors.border,
+    borderBottomWidth: 1,
+    height: 60,
+  }}
+>
+  <Text body1>{t("language")}</Text>
+  <TouchableOpacity
+    onPress={handleOpenPicker}
+    style={{
+      height: 48,
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "pink",
+      display: "flex",
+      flexDirection: "row",
+    }}
+  >
+    <Text body1 grayColor>
+      {selectedLanguage}
+    </Text>
+    <Icon
+      name="angle-right"
+      size={18}
+      color={colors.primary}
+      style={{ marginLeft: 5 }}
+      enableRTL={true}
+    />
+    <Picker
+      style={{ display: "none", opacity: 0, height: 0, width: 0 }}
+      ref={ref}
+      mode="dropdown"
+      selectedValue={selectedLanguage}
+      onValueChange={(v, i) => setSelectedLanguage(v!)}
+    >
+      <Picker.Item label="Español" value="Español" />
+      <Picker.Item label="Inglés" value="Inglés" />
+      <Picker.Item label="Francés" value="Francés" />
+      <Picker.Item label="Portugués" value="Portugués" />
+    </Picker>
+  </TouchableOpacity>
+</View>
+```

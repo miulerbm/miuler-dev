@@ -1,0 +1,52 @@
+---
+title: About counting tags
+description: Analyzing a smart way for counting tags in posts.
+date: 2024-05-06
+tags: ["code", "algorithm", "javascript"]
+published: true
+---
+
+## Code
+
+```js
+export function getAllTags(posts: Array<Post>) {
+  const tags: Record<string, number> = {};
+  posts.forEach((post) => {
+    post.tags?.forEach((tag) => {
+      tags[tag] = (tags[tag] ?? 0) + 1;
+    });
+  });
+  return tags;
+}
+```
+
+## Breaking it down
+
+In this function what we do is:
+
+1. Initialize a Record (key,value pair) that will store two elements: a string and a number.
+2. Then, we pass through all the posts we have and we perform the counting of the tags.
+3. For example, if we have the following post items:
+
+```js
+const posts: Post[] = [
+  { id: 1, title: "Post 1", tags: ["react", "code"] },
+  { id: 2, title: "Post 2", tags: ["javascript", "code"] },
+  { id: 3, title: "Post 3", tags: ["react", "javascript"] },
+];
+```
+
+4. Our output will be something like:
+
+```js
+{
+  "react": 2,
+  "code": 2,
+  "javascript": 2
+}
+```
+
+Note that, each time we perform the updating of the tags object Record, we are doing something like this:
+
+- tags[tag] access the current number in the record for that specific tag, for example “react”: 1. If there is a count, it increases it by 1.
+- if there is no value or the tags are undefined then it initializes its value and starts with 1.

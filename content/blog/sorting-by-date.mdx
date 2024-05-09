@@ -1,0 +1,57 @@
+---
+title: Sorting elements by its date
+description: Using the sort method from JavaScript.
+date: 2024-05-01
+tags: ["code", "algorithm", "javascript"]
+published: true
+---
+
+# Code
+
+We build a helper function for sorting Posts which have a date property.
+
+```js
+export function sortPosts(posts: Array<Post>) {
+  return posts.sort((a, b) => {
+    if (a.date > b.date) return -1;
+    if (a.date < b.date) return 1;
+    return 0;
+  });
+}
+```
+
+# Explanation
+
+What this does is using the sort method from javascript, this uses a callback function that returns logical values from a comparison between two items. In short, if a.date < b.date is true, it returns a -1, so a.date is more recent, and a must appear before b. If a.date is less than b.date it returns a 1, so b is more recent and it must appear before a.
+
+<Callout type="message">
+  When the comparison returns a negative, it means “a” the first element must
+  appear before the second “b”. And if the comparison returns a positive, “a”
+  must appear after “b”.
+</Callout>
+
+# Further Explanation
+
+Another example, sorting random numbers:
+
+```typescript
+export function sortNumbers(numbers: number[]) {
+  return numbers.sort((a, b) => a - b);
+}
+```
+
+In this function:
+
+- `numbers` is an array of numbers that you want to sort.
+- The `sort` method is used on the `numbers` array.
+- Inside the `sort` method, there's a callback function that compares two numbers `a` and `b`. If `a` should come before `b` (i.e., `a` is smaller than `b`), the function returns a negative value. If `a` should come after `b` (i.e., `a` is greater than `b`), the function returns a positive value. If `a` and `b` are equal, the function returns `0`.
+- By subtracting `b` from `a` (`a - b`), you're essentially ordering the numbers in ascending order.
+
+You can use this function to sort an array of random numbers like so:
+
+```typescript
+const numbers = [5, 2, 8, 1, 9, 3, 6];
+console.log(sortNumbers(numbers)); // Output: [1, 2, 3, 5, 6, 8, 9]
+```
+
+This will output the sorted array `[1, 2, 3, 5, 6, 8, 9]`, where the numbers are in ascending order.
