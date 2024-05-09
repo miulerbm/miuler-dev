@@ -1,0 +1,53 @@
+---
+title: Function Call vs Function Reference
+description: When to use "() => fn" and "fn"
+date: 2024-05-09
+tags: ["react", "code"]
+published: true
+---
+
+# Intro
+
+Let's say we want to create a simple Button for increasing a Counter and we use a useState React hook. Like the following:
+
+```tsx
+<button onClick={setCounter(counter + 1)}>plus</button>
+```
+
+This will cause a failure of our application, because the event handlers like _*onClick*_ are actually functions or function references, and in fact, `setCounter(counter+1)` is a function call.
+
+# Why this doesn&apos;t work?
+
+In many situations passing a function call may work, but in a lot of them it doesn&apos;t because of how React responds when a function is called. It renders the component over and over causing an infinite loop.
+
+# What does work?
+
+A good example of addressing this issue quickly would be:
+
+```tsx
+<button onClick={() => setCounter(counter + 1)}>plus</button>
+```
+
+```tsx
+const App = () => {
+  const [counter, setCounter] = useState(0);
+
+  const increaseByOne = () => setCounter(counter + 1);
+
+  const setToZero = () => setCounter(0);
+
+  return (
+    <div>
+      <div>{counter}</div>
+      <button onClick={increaseByOne}>plus</button>
+      <button onClick={setToZero}>zero</button>
+    </div>
+  );
+};
+```
+
+In this code, we have separated the event handlers in different functions. This is how they are defined correctly.
+
+---
+
+Original idea from: <a target="_blank" href="https://fullstackopen.com/en/part1/component_state_event_handlers#an-event-handler-is-a-function">fullstackOpen</a>
