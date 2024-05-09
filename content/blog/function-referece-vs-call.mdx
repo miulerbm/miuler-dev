@@ -28,6 +28,12 @@ A good example of addressing this issue quickly would be:
 <button onClick={() => setCounter(counter + 1)}>plus</button>
 ```
 
+Here we are defining the eventHandler as a function.
+
+## Refactoring the code
+
+A more organized way would be like:
+
 ```tsx
 const App = () => {
   const [counter, setCounter] = useState(0);
@@ -46,7 +52,7 @@ const App = () => {
 };
 ```
 
-In this code, we have separated the event handlers in different functions. This is how they are defined correctly.
+In this code, we have separated the event handlers in different functions, and we pass them as a function reference. This is how they are defined correctly.
 
 ---
 
