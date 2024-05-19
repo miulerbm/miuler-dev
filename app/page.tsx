@@ -13,7 +13,7 @@ export default function Home() {
         <div className="container flex flex-col gap-4 text-center">
           <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-balance">
             Hello! I&apos;m{" "}
-            <div className="hover:scale-110 hover:text-teal-600 inline-block">
+            <div className="hover:text-teal-600 inline-block">
               <a href="/about">Miuler</a>
             </div>
           </h1>
