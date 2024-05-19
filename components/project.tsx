@@ -21,8 +21,8 @@ function Project({
   mobile: boolean;
 }) {
   return (
-    <a href={link} aria-label={text} target="_blank">
-      <div className="flex flex-col transition-all hover:scale-105 scale-100 rounded-lg max-h-max max-w-96 m-4">
+    <div className="flex flex-col transition-all hover:scale-105 scale-100 rounded-lg max-h-max max-w-96 m-4">
+      <a href={link} aria-label={text} target="_blank">
         {(mobile || desktop) && (
           <div className="absolute top-4 right-4 flex gap-1 text-white">
             {mobile && <Smartphone />}
@@ -36,7 +36,7 @@ function Project({
             {headline}
             {indev && <div className="text-green-500">&bull;</div>}
           </div>
-          <p>{text}</p>
+          <p className="text-muted-foreground">{text}</p>
           <ul className="flex flex-wrap" aria-label="Technologies used:">
             {tags.map((item, index) => (
               <li key={index} className="mr-1.5 mt-2">
@@ -45,8 +45,8 @@ function Project({
             ))}
           </ul>
         </div>
-      </div>
-    </a>
+      </a>
+    </div>
   );
 }
 
