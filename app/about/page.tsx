@@ -1,7 +1,10 @@
 import Timeline from "@/components/timeline";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { buttonVariants } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
+import { cn } from "@/lib/utils";
 import { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "About Me",
@@ -53,6 +56,19 @@ export default async function AboutPage() {
         </div>
         <hr className="my-8" />
         <Timeline />
+        <hr className="my-8" />
+        <div className="flex flex-row justify-center">
+          <Link
+            target="_blank"
+            href="https://drive.google.com/file/d/1mPAxMKi1W5rXFAjojRBVLVBJrM8mCbax/view?usp=sharing"
+            className={cn(
+              buttonVariants({ size: "lg" }),
+              "w-full sm:w-fit hover:scale-105"
+            )}
+          >
+            Get my CV
+          </Link>
+        </div>
       </div>
     </div>
   );
