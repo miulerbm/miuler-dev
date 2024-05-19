@@ -1,0 +1,46 @@
+{
+  "data": [
+    {
+      "title": "Frontend Developer",
+      "company": "@ Gope",
+      "tasks": [
+        "Development with Next.js, React components and CRUD integrations using REST APIs.",
+        "Styling with Tailwind CSS, state management using Redux.",
+        "Multi-platform app development with React Native, using the MVVM pattern and Clean Architecture."
+      ],
+      "tags": ["React", "React Native", "TypeScript", "Redux", "Tailwind CSS"],
+      "year": "2024"
+    },
+    {
+      "title": "Programmer",
+      "company": "@ Inversac",
+      "tasks": [
+        "IT support with Python and VBA for scripting and automating tasks.",
+        "Human-machine interfaces development using TIA Portal.",
+        "PLC programming in SCL, LADDER."
+      ],
+      "tags": ["SCL", "Ladder", "Tia Portal", "HMI", "PLC"],
+      "year": "2023"
+    },
+    {
+      "title": "Engineering Trainee",
+      "company": "@ STI",
+      "tasks": [
+        "Asset management and control using SAP ERP software and VBA in Excel.",
+        "Oral and written english translation for communication with foreign parties."
+      ],
+      "tags": ["Python", "SAP ERP", "Shell", "VBA"],
+      "year": "2022"
+    },
+    {
+      "title": "IT Engineer",
+      "company": "@ E&C",
+      "tasks": [
+        "Back-office support and scripting with Python, JavaScript and Visual Basic Macros.",
+        "Electromechanical engineering design in CAD software."
+      ],
+      "tags": ["Python", "Shell", "JavaScript", "VBA"],
+      "year": "2022"
+    }
+  ]
+}

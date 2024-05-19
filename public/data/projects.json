@@ -1,0 +1,64 @@
+{
+  "data": [
+    {
+      "title": "Gope",
+      "image": "/images/GopeApp.webp",
+      "link": "https://www.linkedin.com/company/gope-app",
+      "tags": ["React Native", "Typescript", "Redux"],
+      "text": "Connecting people with diverse recreational activities.",
+      "indev": true,
+      "desktop": true,
+      "mobile": true
+    },
+    {
+      "title": "Gope Dashboard",
+      "image": "/images/GopeBackOffice.webp",
+      "link": "https://www.linkedin.com/company/gope-app",
+      "tags": ["Next.js", "Typescript", "Redux", "Tailwind CSS"],
+      "text": "Backoffice application implemented with NextJS and REST APIs.",
+      "indev": true,
+      "desktop": true,
+      "mobile": true
+    },
+    {
+      "title": "CaseCobra",
+      "image": "/images/CaseCobra.webp",
+      "link": "https://casecobra-woad.vercel.app",
+      "tags": ["Next.js", "Tailwind CSS", "Kinde", "Stripe"],
+      "text": "Phone Case webstore built using Next.js, Tailwind. Auth and payment functionalities.",
+      "indev": false,
+      "desktop": true,
+      "mobile": true
+    },
+    {
+      "title": "miulerBlog",
+      "image": "/images/miulerbmBlog.webp",
+      "link": "https://miuler-blog.vercel.app",
+      "tags": ["Next.js", "Typescript", "Velite", "Tailwind CSS"],
+      "text": "My personal blog page built using Next.js. Well, you're here.",
+      "indev": false,
+      "desktop": true,
+      "mobile": true
+    },
+    {
+      "title": "Portfolio",
+      "image": "/images/LegacyPortfolio.webp",
+      "link": "https://legacy-portfolio-miuler.vercel.app",
+      "tags": ["Next.js", "Typescript", "Tailwind CSS"],
+      "text": "A portfolio page for software developers.",
+      "indev": false,
+      "desktop": true,
+      "mobile": true
+    },
+    {
+      "title": "Pong Game (1v1)",
+      "image": "/images/PongGame.webp",
+      "link": "https://miulerbm.github.io/pong-js",
+      "tags": ["JavaScript", "HTML", "CSS"],
+      "text": "Multiplayer pong game for desktop. Built using JavaScript, HTML and CSS.",
+      "indev": false,
+      "desktop": true,
+      "mobile": false
+    }
+  ]
+}

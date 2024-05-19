@@ -25,9 +25,7 @@ export function SiteFooter() {
           </a>
         </div>
         <div className="mb-2 flex space-x-2 text-sm text-muted-foreground hover:scale-110">
-          <a target="_blank" href={siteConfig.links.personalSite}>
-            {siteConfig.author}
-          </a>
+          <a href="/about">{siteConfig.author}</a>
         </div>
       </div>
     </footer>
