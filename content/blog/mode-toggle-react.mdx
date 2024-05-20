@@ -1,0 +1,146 @@
+---
+title: Dark mode toggle with Next Themes
+description: How to implement a dark mode toggle button in a Next.js app using shadcn/ui and next themes
+date: 2024-05-19
+tags: ["next", "react", "typescript"]
+published: true
+---
+
+# Intro
+
+Some people love dark mode, and some people hate it. But everyone appreciates to have the option. For implementing this in a Next.js project. We need to install some dependencies. In this case, we will need Tailwind, Shadcn, and Lucide icons.
+
+## Setting up the globals.css
+
+After setting up a Next.js with Tailwind CSS we will add the following code to our globals.css:
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 5.9% 10%;
+    --radius: 1rem;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+  }
+}
+```
+
+This code is provided in <a target="_blank" href="https://ui.shadcn.com/themes">Shadcn/themes</a>. Were you can customize your site colors. There are other websites for getting the css properties, but I like Shadcn.
+
+Now, we build the toggle mode component in our components folder. We can write as follows:
+
+```tsx
+"use client";
+
+import { useTheme } from "next-themes";
+import { Button } from "./ui/button";
+import { Moon, Sun } from "lucide-react";
+import { useEffect, useState } from "react";
+
+export function ModeToggle() {
+  const { resolvedTheme, setTheme } = useTheme();
+  const [currentTheme, setCurrentTheme] = useState("system");
+
+  useEffect(() => {
+    if (resolvedTheme) {
+      setCurrentTheme(resolvedTheme);
+    }
+  }, [resolvedTheme]);
+
+  const handleToggle = () => {
+    if (currentTheme === "light") {
+      setCurrentTheme("dark");
+      setTheme("dark");
+    } else if (currentTheme === "dark") {
+      setCurrentTheme("light");
+      setTheme("light");
+    }
+  };
+
+  return (
+    <Button variant="ghost" className="w-10 px-0" onClick={handleToggle}>
+      <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+      <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+      <span className="sr-only">Toggle Theme</span>
+    </Button>
+  );
+}
+```
+
+## Breaking down the code
+
+This code uses Next themes for getting the useTheme class. Which provides us with the resolvedTheme value and the setTheme method.
+
+We save the currentTheme in a React state. At the beginning, our default theme value will be "system". When the page renders, we will get through the resolvedtheme value if the system theme is "light" or "dark". And then, with a useEffect hook, we can set the theme to its right value.
+
+```tsx
+const [currentTheme, setCurrentTheme] = useState("system");
+```
+
+We will use a Button component from Shadcn as well, which lets us pass it two elements as children. In this case, the elements will be two different icons: Sun and Moon from Lucide.
+
+```tsx
+<Button variant="ghost" className="w-10 px-0" onClick={handleToggle}>
+  <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+  <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+  <span className="sr-only">Toggle Theme</span>
+</Button>
+```
+
+The button will implement a onClick handler, which is the handleToggle function. This will set the theme to "dark" if it's in "light" mode, and viceversa.
+
+```tsx
+const handleToggle = () => {
+  if (currentTheme === "light") {
+    setCurrentTheme("dark");
+    setTheme("dark");
+  } else if (currentTheme === "dark") {
+    setCurrentTheme("light");
+    setTheme("light");
+  }
+};
+```
+
+By doing this, we can use the Shadcn/ui themes for implementing two different styles that will be available for all the contents in our application.
