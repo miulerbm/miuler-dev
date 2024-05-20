@@ -33,15 +33,16 @@ export default async function AboutPage() {
               {siteConfig.author}
             </h2>
             <p className="text-muted-foreground text-center break-words">
-              Frontend Developer
+              Software Developer
             </p>
           </div>
-          <p className="text-muted-foreground text-lg text-pretty py-4">
-            I&apos;m a frontend developer with a bachelor&apos;s degree in
-            Mechatronics Engineering. So far I&apos;ve been working with an
-            amazing team at Gope, a peruvian startup where we&apos;re building
-            an application for connecting people and different recreational
-            activities such as tours, adventures, extreme sports, etc.
+          <p className="text-muted-foreground text-lg text-pretty py-4 self-center">
+            I&apos;m a mechatronics engineering graduate with passion for
+            building high-quality software. So far I&apos;ve been working with
+            an amazing team at Gope, a peruvian startup where we&apos;re
+            building an application for connecting people and different
+            recreational activities such as tours, adventures, extreme sports,
+            etc.
           </p>
         </div>
       </div>
@@ -50,7 +51,7 @@ export default async function AboutPage() {
         <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
           <div className="flex-1 space-x-4">
             <h1 className="inline-block font-black text-4xl lg:text-5xl ">
-              Experience
+              My experience
             </h1>
           </div>
         </div>
