@@ -18,8 +18,7 @@ export default function Home() {
             </div>
           </h1>
           <p className="max-w-[42rem] mx-auto text-muted-foreground sm:text-xl text-balance">
-            Software developer currently working with Next.js for building React
-            Projects.
+            Software developer currently working on Frontend Development.
           </p>
           <div className="flex flex-col gap-4 justify-center sm:flex-row ">
             <Link
@@ -29,7 +28,7 @@ export default function Home() {
                 "w-full sm:w-fit hover:scale-105"
               )}
             >
-              View my blog
+              Blog
             </Link>
             <Link
               href={"/projects"}
@@ -39,7 +38,7 @@ export default function Home() {
                 "w-full sm:w-fit hover:scale-105"
               )}
             >
-              View my projects
+              Projects
             </Link>
           </div>
         </div>

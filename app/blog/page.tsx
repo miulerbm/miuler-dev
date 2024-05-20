@@ -2,6 +2,7 @@ import { posts } from "#site/content";
 import { PostItem } from "@/components/post-item";
 import { QueryPagination } from "@/components/query-pagination";
 import { Tag } from "@/components/tag";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getAllTags, sortPosts, sortTagsByCount } from "@/lib/utils";
 import { Metadata } from "next";

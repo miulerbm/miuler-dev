@@ -1,0 +1,134 @@
+---
+title: Understanding Authentication Callbacks in Next.js with Kinde
+description: How to implement an authentication page for granting the correct access for the right users.
+date: 2024-05-15
+tags: ["next", "auth"]
+published: true
+---
+
+### Understanding Authentication Callbacks in Next.js with Kinde
+
+In a modern web application, handling authentication is crucial. In this blog post, we'll dive into how to handle an authentication callback in a Next.js application using Kinde for authentication. We'll go through the provided code which includes two files: `actions.ts` and `page.tsx`, situated in the `auth-callback` folder inside the `app` directory.
+
+#### Overview
+
+- **`actions.ts`**: This file contains server-side logic to verify and manage user authentication status.
+- **`page.tsx`**: This client-side file handles the user interface and redirects based on the authentication status.
+
+Let's break down each part of the code to understand how it works.
+
+### `actions.ts`: Server-Side Authentication Logic
+
+```typescript
+"use server";
+
+import { db } from "@/db";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+
+export const getAuthStatus = async () => {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
+  if (!user?.id || !user.email) {
+    throw new Error("Invalid user data");
+  }
+
+  const existingUser = await db.user.findFirst({
+    where: { id: user.id },
+  });
+
+  if (!existingUser) {
+    await db.user.create({
+      data: {
+        id: user.id,
+        email: user.email,
+      },
+    });
+  }
+
+  return { success: true };
+};
+```
+
+#### Key Points:
+
+1. **Kinde Server Session**: The function `getKindeServerSession` is used to get the current server session. This is crucial for accessing user information securely on the server-side.
+2. **User Validation**: The `getUser` method retrieves user data. If the user data is invalid (i.e., missing `id` or `email`), an error is thrown.
+3. **Database Operations**: The code checks if the user already exists in the database using `db.user.findFirst`. If the user doesn't exist, it creates a new user record.
+4. **Return Value**: The function returns a success status if everything checks out.
+
+### `page.tsx`: Client-Side Authentication Callback
+
+```tsx
+"use client";
+
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { getAuthStatus } from "./actions";
+import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
+
+const Page = () => {
+  const [configId, setConfigId] = useState<string | null>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const configurationId = localStorage.getItem("configurationId");
+    if (configurationId) setConfigId(configurationId);
+  }, []);
+
+  const { data } = useQuery({
+    queryKey: ["auth-callback"],
+    queryFn: async () => await getAuthStatus(),
+    retry: true,
+    retryDelay: 500,
+  });
+
+  if (data?.success) {
+    if (configId) {
+      localStorage.removeItem("configurationId");
+      router.push(`/configure/preview?id=${configId}`);
+    } else {
+      router.push("/");
+    }
+  }
+
+  return (
+    <div className="w-full mt-24 flex justify-center">
+      <div className="flex flex-col items-center gap-2">
+        <Loader2 className="h-8 w-8 animate-spin text-zinc-500" />
+        <h3 className="font-semibold text-xl">Logging you in...</h3>
+        <p>You will be redirected automatically.</p>
+      </div>
+    </div>
+  );
+};
+
+export default Page;
+```
+
+#### Key Points:
+
+1. **State Management**: The component maintains a state `configId` to hold a configuration ID fetched from `localStorage`.
+2. **Effect Hook**: The `useEffect` hook runs once on component mount to fetch the `configurationId` from `localStorage` and set it in the state.
+3. **React Query**: The `useQuery` hook from `@tanstack/react-query` is used to call the `getAuthStatus` function. This hook handles the server request and manages the loading, error, and success states.
+4. **Redirection Logic**: If authentication is successful (`data?.success`), the user is redirected based on whether `configId` is present or not. If `configId` is present, it's removed from `localStorage`, and the user is redirected to a preview configuration page. Otherwise, they are redirected to the homepage.
+5. **Loading Indicator**: While waiting for authentication, a loading spinner and message are displayed to the user.
+
+### Expanding on Authentication Callbacks
+
+#### Security Considerations
+
+Handling authentication on both the server and client sides is critical for security. The server-side code ensures that user data is validated and securely interacts with the database. On the client side, sensitive operations like storing configuration IDs should be managed cautiously, ensuring they are only stored and accessed temporarily.
+
+#### User Experience
+
+A seamless user experience during authentication is crucial. The loading indicator and automatic redirection help in providing feedback to the user, making the authentication process feel smooth and intuitive.
+
+#### Error Handling
+
+While the provided code handles basic errors, such as invalid user data, it's essential to expand error handling to cover network issues, database errors, and other potential problems. Implementing comprehensive error handling ensures the application remains robust and user-friendly.
+
+### Conclusion
+
+This post demonstrates an effective way to manage authentication callbacks using Kinde. By separating server-side logic and client-side handling, it ensures security and a seamless user experience. Understanding and expanding on these concepts can help in building more secure and user-friendly web applications.
