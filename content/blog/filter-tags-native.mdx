@@ -1,0 +1,86 @@
+---
+title: Filtering by tags in React Native
+description: Creating a tag filter for a place list screen in React Native.
+date: 2024-05-20
+tags: ["react-native"]
+published: true
+---
+
+# Intro
+
+In this post, we'll see how to implement a tag filter component. In this case, the filtering is based on generating an object which will be send to an endpoint that process the object and returns the filtered data.
+
+## Goal
+
+For getting this filter working, we'll generate the following object:
+
+```js
+data = {
+  preferences: [
+    { code: "001", name: "preference1" },
+    { code: "002", name: "preference2" },
+    { code: "003", name: "preference3" },
+  ],
+};
+```
+
+This can be done by using a react-form. This library provides us with methods for registering data inside a form. This is ideal for our usecase.
+The snippet for the button elements is:
+
+```tsx
+const preferencesData: Preference[] = [
+  { code: "p001", name: "Beach" },
+  { code: "p002", name: "Mountains" },
+  { code: "p003", name: "Lakes" },
+  { code: "p004", name: "City" },
+];
+
+const { control, handleSubmit, setValue, getValues } = useForm({
+  resolver: zodResolver(schema),
+});
+
+const [preferences, setPreferences] = useState<Preference[]>([]);
+
+<View style={styles.buttonContainer}>
+  {preferencesData.map((preference) => (
+    <View key={preference.code} style={styles.buttonWrapper}>
+      <Button
+        style={[
+          styles.button,
+          {
+            backgroundColor: isPreferenceSelected(preference)
+              ? "orange"
+              : "#e5e5e5",
+          },
+        ]}
+        onPress={() => togglePreference(preference)}
+      >
+        <Text>{preference.name}</Text>
+      </Button>
+    </View>
+  ))}
+</View>;
+```
+
+In this code, we map over all our available tags, and render buttons which will togglePreference (add or remove the current preference to a list) if pressed.
+
+## togglePreference
+
+This function is implemented as follows:
+
+```tsx
+const togglePreference = (preference: Preference) => {
+  const newPreferences = preferences.find((p) => p.code === preference.code)
+    ? preferences.filter((p) => p.code !== preference.code)
+    : [...preferences, preference];
+
+  setPreferences(newPreferences);
+  setValue("preferences", newPreferences);
+};
+```
+
+When we press on a preference button, we first evaluate if that element is already in our preferences state (a list of preferences). If it's inside the list already. We remove it both from the list by overwriting the newPreferences with a new list that is the current preferences and filtered out the pressed preference. If the preference pressed is not in the list, we add it to the list by setting our newPreferences variable as the current preferences plus the pressed preference.
+
+Finally, we use setValue from the useForm hook to set our values.
+
+By doing this, we can implement the filtering object that will be send to our backend endpoints for getting the required data.
