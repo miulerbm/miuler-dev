@@ -61,7 +61,7 @@
       "mobile": false
     },
     {
-      "title": "ExerciseSite",
+      "title": "ExerSite",
       "image": "/images/ExerciseSite.webp",
       "link": "https://exercises-app-seven.vercel.app/",
       "tags": ["React", "RapidAPI"],
