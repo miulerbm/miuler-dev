@@ -59,6 +59,26 @@
       "indev": false,
       "desktop": true,
       "mobile": false
+    },
+    {
+      "title": "ExerciseSite",
+      "image": "/images/ExerciseSite.webp",
+      "link": "https://exercises-app-seven.vercel.app/",
+      "tags": ["React", "RapidAPI"],
+      "text": "Fitness and health exercise for providing tutorials and recommendations.",
+      "indev": false,
+      "desktop": true,
+      "mobile": true
+    },
+    {
+      "title": "StickerSmash",
+      "image": "/images/StickerSmashApp.webp",
+      "link": "https://github.com/miulerbm/StickerSmash",
+      "tags": ["Expo", "React Native"],
+      "text": "A React Native application built with the Expo framework for editing stickers.",
+      "indev": false,
+      "desktop": false,
+      "mobile": true
     }
   ]
 }
