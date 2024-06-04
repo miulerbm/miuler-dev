@@ -65,7 +65,7 @@
       "image": "/images/ExerciseSite.webp",
       "link": "https://exercises-app-seven.vercel.app/",
       "tags": ["React", "RapidAPI"],
-      "text": "Fitness and health exercise for providing tutorials and recommendations.",
+      "text": "Fitness and health web page for providing tutorials and recommendations.",
       "indev": false,
       "desktop": true,
       "mobile": true
