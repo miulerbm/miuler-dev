@@ -1,24 +1,28 @@
+"use client";
+
 import Timeline from "@/components/timeline";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { buttonVariants } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { Metadata } from "next";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "About Me",
-  description: "Information about me",
-};
+export default function AboutPage() {
+  const t = useTranslations();
+  const locale = usePathname();
 
-export default async function AboutPage() {
+  console.log("locale", locale);
+
   return (
     <div className="container max-w-4xl py-6 lg:py-10">
       <div>
         <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
           <div className="flex-1 space-x-4">
             <h1 className="inline-block font-black text-4xl lg:text-5xl">
-              About me
+              {t("aboutMe")}
             </h1>
           </div>
         </div>
@@ -37,12 +41,7 @@ export default async function AboutPage() {
             </p>
           </div>
           <p className="text-muted-foreground text-lg text-pretty py-4 self-center">
-            I&apos;m a mechatronics engineering graduate with passion for
-            building high-quality software. So far I&apos;ve been working with
-            an amazing team at Gope, a peruvian startup where we&apos;re
-            building an application for connecting people and different
-            recreational activities such as tours, adventures, extreme sports,
-            etc.
+            {t("aboutDescription")}
           </p>
         </div>
       </div>
@@ -51,7 +50,7 @@ export default async function AboutPage() {
         <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
           <div className="flex-1 space-x-4">
             <h1 className="inline-block font-black text-4xl lg:text-5xl ">
-              My experience
+              {t("myExperience")}
             </h1>
           </div>
         </div>
@@ -61,13 +60,17 @@ export default async function AboutPage() {
         <div className="flex flex-row justify-center">
           <Link
             target="_blank"
-            href="https://drive.google.com/file/d/1mPAxMKi1W5rXFAjojRBVLVBJrM8mCbax/view?usp=sharing"
+            href={
+              locale.includes("/en")
+                ? "https://drive.google.com/file/d/1mPAxMKi1W5rXFAjojRBVLVBJrM8mCbax/view?usp=sharing"
+                : "https://drive.google.com/file/d/1xtK1Sqqad8LjsJjrbKJXMd02GlJFM6ju/view?usp=sharing"
+            }
             className={cn(
               buttonVariants({ size: "lg" }),
               "w-full sm:w-fit hover:scale-105"
             )}
           >
-            Get my CV
+            {t("getMyCV")}
           </Link>
         </div>
       </div>

@@ -5,13 +5,20 @@ import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { Button } from "./ui/button";
 import { Menu } from "lucide-react";
 import Link, { LinkProps } from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Icons } from "./icons";
 import { siteConfig } from "@/config/site";
+import { useTranslations } from "next-intl";
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
 
+  const pathname = usePathname();
+
+  const locale = pathname.split("/")[1];
+
+  const createHref = (path: string) => `/${locale}${path}`;
+  const t = useTranslations();
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
@@ -23,21 +30,21 @@ export function MobileNav() {
       <SheetContent side={"right"}>
         <MobileLink
           onOpenChange={setOpen}
-          href="/"
+          href={createHref("/")}
           className="flex items-center"
         >
           <Icons.logo className="mr-2 h-4 w-4" />
           <span className="font-bold">{siteConfig.name}</span>
         </MobileLink>
         <div className="flex flex-col gap-3 mt-3">
-          <MobileLink onOpenChange={setOpen} href="/about">
-            About
+          <MobileLink onOpenChange={setOpen} href={createHref("/about")}>
+            {t("about")}
           </MobileLink>
-          <MobileLink onOpenChange={setOpen} href="/blog">
+          <MobileLink onOpenChange={setOpen} href={createHref("/blog")}>
             Blog
           </MobileLink>
-          <MobileLink onOpenChange={setOpen} href="/projects">
-            Projects
+          <MobileLink onOpenChange={setOpen} href={createHref("/projects")}>
+            {t("projects")}
           </MobileLink>
           <Link target="_blank" rel="noreferrer" href={siteConfig.links.github}>
             Github

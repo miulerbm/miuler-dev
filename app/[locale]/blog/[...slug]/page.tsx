@@ -1,23 +1,29 @@
-import { posts } from "#site/content";
-import { MDXCOntent } from "@/components/mdx-components";
+import { postsEn, postsEs } from "#site/content";
+import { MDXContent } from "@/components/mdx-components";
 import { notFound } from "next/navigation";
-
-import "@/styles/mdx.css";
 import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import { Tag } from "@/components/tag";
+import "@/styles/mdx.css";
+import { log } from "console";
 
 interface PostPageProps {
   params: {
     slug: string[];
+    locale: string;
   };
 }
 
 async function getPostFromParams(params: PostPageProps["params"]) {
-  console.log("params", params);
+  const { slug, locale } = params;
+  const slugStr = slug.join("/");
 
-  const slug = params?.slug.join("/");
-  const post = posts.find((post) => post.slugAsParams === slug);
+  const posts = locale === "es" ? postsEs : postsEn;
+
+  const post = posts.find((post) => {
+    return post.slugAsParams === locale + "/blog/" + slugStr;
+  });
+
   return post;
 }
 
@@ -63,15 +69,28 @@ export async function generateMetadata({
 export async function generateStaticParams(): Promise<
   PostPageProps["params"][]
 > {
-  return posts.map((post) => ({ slug: post.slugAsParams.split("/") }));
+  const enPosts = postsEn.map((post) => ({
+    slug: post.slugAsParams.split("/"),
+    locale: "en",
+  }));
+  const esPosts = postsEs.map((post) => ({
+    slug: post.slugAsParams.split("/"),
+    locale: "es",
+  }));
+
+  return [...enPosts, ...esPosts];
 }
 
 export default async function PostPage({ params }: PostPageProps) {
   const post = await getPostFromParams(params);
+  const { locale } = params;
+
+  log("post", post);
 
   if (!post || !post.published) {
     notFound();
   }
+
   return (
     <article className="container py-6 prose dark:prose-invert max-w-3xl mx-auto">
       <h1 className="mb-2">{post.title}</h1>
@@ -84,7 +103,12 @@ export default async function PostPage({ params }: PostPageProps) {
         <p className="text-xl mt-0 text-muted-foreground">{post.description}</p>
       ) : null}
       <hr className="my-4" />
-      <MDXCOntent code={post.body} />
+      <MDXContent code={post.body} />
+      <div>
+        <a className="hover:underline" href={`/${locale}/blog`}>
+          Volver
+        </a>
+      </div>
     </article>
   );
 }

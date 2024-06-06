@@ -1,0 +1,46 @@
+{
+  "data": [
+    {
+      "title": "Desarrollador Frontend",
+      "company": "@ Gope",
+      "tasks": [
+        "Desarrollo con Next.js, componentes de React e integraciones CRUD utilizando APIs REST.",
+        "Estilización con Tailwind CSS, gestión del estado usando Redux.",
+        "Desarrollo de aplicaciones multiplataforma con React Native, utilizando el patrón MVVM y Clean Architecture."
+      ],
+      "tags": ["React", "React Native", "TypeScript", "Redux", "Tailwind CSS"],
+      "year": "2024"
+    },
+    {
+      "title": "Programador",
+      "company": "@ Inversac",
+      "tasks": [
+        "Soporte de TI con Python y VBA para la escritura de scripts y la automatización de tareas.",
+        "Desarrollo de interfaces hombre-máquina usando TIA Portal.",
+        "Programación de PLC en SCL, LADDER."
+      ],
+      "tags": ["SCL", "Ladder", "Tia Portal", "HMI", "PLC"],
+      "year": "2023"
+    },
+    {
+      "title": "Trainee de Ingeniería",
+      "company": "@ STI",
+      "tasks": [
+        "Gestión y control de activos utilizando el software SAP ERP y VBA en Excel.",
+        "Traducción oral y escrita de inglés para la comunicación con grupos extranjeros."
+      ],
+      "tags": ["Python", "SAP ERP", "Shell", "VBA"],
+      "year": "2022"
+    },
+    {
+      "title": "Ingeniero de TI",
+      "company": "@ E&C",
+      "tasks": [
+        "Soporte de back-office y scripting con Python, JavaScript y Macros de Visual Basic.",
+        "Diseño de ingeniería electromecánica en software CAD."
+      ],
+      "tags": ["Python", "Shell", "JavaScript", "VBA"],
+      "year": "2022"
+    }
+  ]
+}

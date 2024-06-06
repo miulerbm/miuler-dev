@@ -1,7 +1,17 @@
-import timelineData from "@/public/data/timeline.json";
+"use client";
+import timelineDataEn from "@/public/data/timelineEn.json";
+import timelineDataEs from "@/public/data/timelineEs.json";
 import Tag from "./about-tag";
+import { usePathname } from "next/navigation";
 
 const Timeline = () => {
+  const pathname = usePathname();
+
+  let timelineData = timelineDataEn;
+  if (pathname.includes("/es")) {
+    timelineData = timelineDataEs;
+  }
+
   return (
     <div className="text-lg">
       {timelineData.data.map((item, index) => (

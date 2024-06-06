@@ -1,19 +1,15 @@
 import { build } from "velite";
+import createNextIntlPlugin from "next-intl/plugin";
 
-/** @type {import('next').NextConfig} */
-export default {
-  // othor next config here...
-  webpack: (config) => {
-    config.plugins.push(new VeliteWebpackPlugin());
-    return config;
-  },
-};
+// Ajusta la configuración para que withNextIntl envuelva toda la configuración de Next.js
+const withNextIntl = createNextIntlPlugin("./app/i18n.ts");
 
+// Define tu plugin de webpack personalizado
 class VeliteWebpackPlugin {
   static started = false;
   apply(/** @type {import('webpack').Compiler} */ compiler) {
-    // executed three times in nextjs
-    // twice for the server (nodejs / edge runtime) and once for the client
+    // Ejecutado tres veces en Next.js
+    // Dos veces para el servidor (runtime de nodejs / edge) y una vez para el cliente
     compiler.hooks.beforeCompile.tapPromise("VeliteWebpackPlugin", async () => {
       if (VeliteWebpackPlugin.started) return;
       VeliteWebpackPlugin.started = true;
@@ -22,3 +18,15 @@ class VeliteWebpackPlugin {
     });
   }
 }
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  // Otros ajustes de Next.js aquí...
+  webpack: (config) => {
+    config.plugins.push(new VeliteWebpackPlugin());
+    return config;
+  },
+};
+
+// Exporta la configuración envuelta con withNextIntl
+export default withNextIntl(nextConfig);

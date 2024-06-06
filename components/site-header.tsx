@@ -1,11 +1,12 @@
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { buttonVariants } from "./ui/button";
 import { Icons } from "./icons";
+import { LangSwitch } from "./lang-switch";
 import { MainNav } from "./main-nav";
 import { MobileNav } from "./mobile-nav";
 import { ModeToggle } from "./mode-toggle";
+import { buttonVariants } from "./ui/button";
 
 const SiteHeader = () => {
   return (
@@ -45,6 +46,7 @@ const SiteHeader = () => {
               </div>
             </Link>
             <ModeToggle />
+            <LangSwitch />
             <MobileNav />
           </nav>
         </div>

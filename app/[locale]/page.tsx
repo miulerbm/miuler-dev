@@ -1,52 +1,65 @@
+"use client";
+
 import { buttonVariants } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 import { cn, sortPosts } from "@/lib/utils";
-import { posts } from "#site/content";
+import { postsEn, postsEs } from "#site/content";
 import Link from "next/link";
 import { PostItem } from "@/components/post-item";
+import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 
 export default function Home() {
+  const pathname = usePathname();
+
+  const posts = pathname.includes("/es") ? postsEs : postsEn;
+
   const latestPosts = sortPosts(posts).slice(0, 5);
+  const t = useTranslations();
+
+  const locale = pathname.split("/")[1];
+
+  const createHref = (path: string) => `/${locale}${path}`;
+
   return (
     <>
       <section className="space-y-6 pb-8 pt-6 md:pb-12 md:mt-10 lg:py-32">
         <div className="container flex flex-col gap-4 text-center">
           <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-balance">
-            Hello! I&apos;m{" "}
+            {t("helloIAm")}
             <div className="hover:text-teal-600 inline-block">
-              <a href="/about">Miuler</a>
+              <a href={createHref("/about")}>Miuler</a>
             </div>
           </h1>
           <p className="max-w-[42rem] mx-auto text-muted-foreground sm:text-xl text-balance">
-            Software developer currently working on client-side applications
-            (Frontend projects).
+            {t("miulerDescription")}
           </p>
           <div className="flex flex-col gap-4 justify-center sm:flex-row ">
             <Link
-              href="/blog"
+              href={createHref("/blog")}
               className={cn(
                 buttonVariants({ size: "lg" }),
                 "w-full sm:w-fit hover:scale-105"
               )}
             >
-              Visit my Blog
+              {t("visitMyBlog")}
             </Link>
             <Link
-              href={"/projects"}
+              href={createHref("/projects")}
               rel="noreferrer"
               className={cn(
                 buttonVariants({ variant: "outline", size: "lg" }),
                 "w-full sm:w-fit hover:scale-105"
               )}
             >
-              Projects
+              {t("projects")}
             </Link>
           </div>
         </div>
       </section>
       <section className="container max-w-4xl py-6 lg:py-10 flex flex-col space-y-6 mt-60">
         <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-center">
-          Latest Posts
+          {t("latestPosts")}
         </h2>
         <ul className="flex flex-col">
           {latestPosts.map((post) => (

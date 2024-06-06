@@ -1,35 +1,57 @@
-import { posts } from "#site/content";
+import { postsEn, postsEs } from "#site/content";
 import { PostItem } from "@/components/post-item";
-import { QueryPagination } from "@/components/query-pagination";
 import { Tag } from "@/components/tag";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { getAllTags, sortPosts, sortTagsByCount } from "@/lib/utils";
+import {
+  getAllTags,
+  getPostsByTagSlug,
+  sortPosts,
+  sortTagsByCount,
+} from "@/lib/utils";
+import { slug } from "github-slugger";
 import { Metadata } from "next";
 
-const POSTS_PER_PAGE = 5;
-
-export const metadata: Metadata = {
-  title: "My Blog",
-  description: "This is a description of my blog",
-};
-
-interface BlogPageProps {
-  searchParams: {
-    page?: string;
+interface TagPageProps {
+  params: {
+    tag: string;
+    locale: string;
   };
 }
 
-export default async function BlogPage({ searchParams }: BlogPageProps) {
-  const currentPage = Number(searchParams?.page) || 1;
+export async function generateMetadata({
+  params,
+}: TagPageProps): Promise<Metadata> {
+  const { tag } = params;
+  return {
+    title: tag,
+    description: `Posts on the topic of ${tag}`,
+  };
+}
 
-  const sortedPosts = sortPosts(posts.filter((post) => post.published));
-  const totalPages = Math.ceil(sortedPosts.length / POSTS_PER_PAGE);
+export const generateStaticParams = () => {
+  const enPosts = postsEn.map((post) => ({
+    tag: post.tags!.map((tag) => slug(tag)),
+    locale: "en",
+  }));
 
-  const displayPosts = sortedPosts.slice(
-    POSTS_PER_PAGE * (currentPage - 1),
-    POSTS_PER_PAGE * currentPage
+  const esPosts = postsEs.map((post) => ({
+    tag: post.tags!.map((tag) => slug(tag)),
+    locale: "es",
+  }));
+
+  return [...enPosts, ...esPosts].flatMap(({ tag, locale }) =>
+    tag.map((t) => ({ tag: t, locale }))
   );
+};
+
+export default function TagPage({ params }: TagPageProps) {
+  const { tag, locale } = params;
+  const title = tag.split("-").join(" ");
+
+  const posts = locale === "es" ? postsEs : postsEn;
+
+  const sortedPosts = sortPosts(posts);
+  const displayPosts = getPostsByTagSlug(sortedPosts!, tag);
 
   const tags = getAllTags(posts);
   const sortedTags = sortTagsByCount(tags);
@@ -38,18 +60,17 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
     <div className="container max-w-4xl py-6 lg:py-10">
       <div className="flex flex-col items-start gap-4 md:flex-row md:justiy-between md:gap-8">
         <div className="flex-1 space-y-4">
-          <h1 className="inline-block font-black text-4xl lg:text-5xl">Blog</h1>
-          <p className="text-xl text-muted-foreground">
-            Bits of my journey through the developer path.
-          </p>
+          <h1 className="inline-block font-black text-4xl lg:text-5xl capitalize">
+            {title}
+          </h1>
         </div>
       </div>
       <div className="grid grid-cols-12 gap-3 mt-8">
         <div className="col-span-12 col-start-1 sm:col-span-8">
           <hr />
-          {displayPosts?.length > 0 ? (
+          {displayPosts!.length > 0 ? (
             <ul className="flex flex-col">
-              {displayPosts.map((post) => {
+              {displayPosts!.map((post) => {
                 const { slug, date, title, description, tags } = post;
                 return (
                   <li key={slug}>
@@ -67,22 +88,18 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
           ) : (
             <p>Nothing to see yet</p>
           )}
-          <QueryPagination
-            totalPages={totalPages}
-            className="justify-end mt-4"
-          />
         </div>
         <Card className="col-span-12 row-start-3 h-fit sm:col-span-4 sm:col-start-9 sm:row-start-1">
           <CardHeader>
             <CardTitle>
-              <a className="hover:underline" href="/tags">
+              <a className="hover:underline" href={`/${locale}/tags`}>
                 Tags
               </a>
             </CardTitle>
           </CardHeader>
           <CardContent className="flex flex-wrap gap-2">
-            {sortedTags?.map((tag) => (
-              <Tag tag={tag} key={tag} count={tags[tag]} />
+            {sortedTags?.map((t) => (
+              <Tag tag={t} key={t} count={tags[t]} current={slug(t) === tag} />
             ))}
           </CardContent>
         </Card>

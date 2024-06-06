@@ -1,14 +1,16 @@
+"use client";
+
 import { getAllTags, sortTagsByCount } from "@/lib/utils";
-import { Metadata } from "next";
-import { posts } from "#site/content";
+import { postsEn, postsEs } from "#site/content";
 import { Tag } from "@/components/tag";
+import { usePathname } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Tags",
-  description: "Topic I've written about",
-};
+export default function TagPage() {
+  const pathname = usePathname();
+  const locale = pathname.split("/")[1];
 
-export default async function TagPage() {
+  const posts = locale === "es" ? postsEs : postsEn;
+
   const tags = getAllTags(posts);
   const sortedTags = sortTagsByCount(tags);
 

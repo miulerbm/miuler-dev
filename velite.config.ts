@@ -3,14 +3,19 @@ import rehypeSlug from "rehype-slug";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeAutoLinkHeadings from "rehype-autolink-headings";
 
-const computedFields = <T extends { slug: string }>(data: T) => ({
+const computedFieldsEn = <T extends { slug: string }>(data: T) => ({
   ...data,
-  slugAsParams: data.slug.split("/").slice(1).join("/"),
+  slugAsParams: "en/" + data.slug.split("/").slice(1).join("/"),
 });
 
-const posts = defineCollection({
-  name: "Post",
-  pattern: "blog/**/*.mdx",
+const computedFieldsEs = <T extends { slug: string }>(data: T) => ({
+  ...data,
+  slugAsParams: "es/" + data.slug.split("/").slice(1).join("/"),
+});
+
+const postsEn = defineCollection({
+  name: "PostEn",
+  pattern: "en/blog/**/*.mdx",
   schema: s
     .object({
       slug: s.path(),
@@ -21,7 +26,23 @@ const posts = defineCollection({
       tags: s.array(s.string()).optional(),
       body: s.mdx(),
     })
-    .transform(computedFields),
+    .transform(computedFieldsEn),
+});
+
+const postsEs = defineCollection({
+  name: "PostEs",
+  pattern: "es/blog/**/*.mdx",
+  schema: s
+    .object({
+      slug: s.path(),
+      title: s.string().max(99),
+      description: s.string().max(999).optional(),
+      date: s.isodate(),
+      published: s.boolean().default(true),
+      tags: s.array(s.string()).optional(),
+      body: s.mdx(),
+    })
+    .transform(computedFieldsEs),
 });
 
 export default defineConfig({
@@ -33,7 +54,7 @@ export default defineConfig({
     name: "[name]-[hash:6].ext",
     clean: true,
   },
-  collections: { posts },
+  collections: { postsEn, postsEs },
   mdx: {
     rehypePlugins: [
       rehypeSlug,
