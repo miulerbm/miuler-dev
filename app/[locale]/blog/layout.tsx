@@ -5,8 +5,8 @@ import { Metadata } from "next";
 import React from "react";
 
 export const metadata: Metadata = {
-  title: "My Blog",
-  description: "This is a description of my blog",
+  title: "Miuler's blog",
+  description: "Bits of my developer path.",
 };
 
 export default function BlogLayout({

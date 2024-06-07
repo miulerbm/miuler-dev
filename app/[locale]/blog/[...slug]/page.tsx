@@ -64,18 +64,18 @@ export async function generateMetadata({
   };
 }
 
-export async function generateStaticParams() {
-  const enPosts = postsEn.map((post) => ({
-    slug: post.slugAsParams.split("/"),
-    locale: "en",
-  }));
-  const esPosts = postsEs.map((post) => ({
-    slug: post.slugAsParams.split("/"),
-    locale: "es",
-  }));
+// export async function generateStaticParams() {
+//   const enPosts = postsEn.map((post) => ({
+//     slug: post.slugAsParams.split("/"),
+//     locale: "en",
+//   }));
+//   const esPosts = postsEs.map((post) => ({
+//     slug: post.slugAsParams.split("/"),
+//     locale: "es",
+//   }));
 
-  return [...enPosts, ...esPosts];
-}
+//   return [...enPosts, ...esPosts];
+// }
 
 export default async function PostPage({ params }: PostPageProps) {
   const { locale } = params;
