@@ -11,5 +11,8 @@
   "getMyCV": "Get my CV",
   "miulerBlog": "Miuler's Blog",
   "blogDescription": "Bits of my developer path.",
-  "readMore": "Read more"
+  "readMore": "Read more",
+  "language": "Language",
+  "english": "English",
+  "spanish": "Spanish"
 }

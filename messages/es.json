@@ -11,5 +11,8 @@
   "getMyCV": "Obtén mi CV",
   "miulerBlog": "El Blog de Miuler",
   "blogDescription": "Fragmentos de mi trayectoria como desarrollador.",
-  "readMore": "Leer más"
+  "readMore": "Leer más",
+  "language": "Idioma",
+  "english": "Inglés",
+  "spanish": "Español"
 }

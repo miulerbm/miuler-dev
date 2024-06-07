@@ -8,14 +8,8 @@ import { useEffect, useState } from "react";
 
 export default function TagPage() {
   const pathname = usePathname();
-  const [locale, setLocale] = useState("en");
 
-  useEffect(() => {
-    const pathLocale = pathname.split("/")[1];
-    setLocale(pathLocale);
-  }, [pathname]);
-
-  const posts = locale === "es" ? postsEs : postsEn;
+  const posts = pathname.includes("/es") ? postsEs : postsEn;
 
   const tags = getAllTags(posts);
   const sortedTags = sortTagsByCount(tags);

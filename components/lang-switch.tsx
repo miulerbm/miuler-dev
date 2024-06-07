@@ -14,9 +14,11 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Icons } from "./icons";
+import { useTranslations } from "next-intl";
 
 export function LangSwitch() {
   const pathname = usePathname();
+  const t = useTranslations();
 
   const router = useRouter();
   return (
@@ -25,12 +27,12 @@ export function LangSwitch() {
         <Button variant="ghost" className="w-10 px-0">
           <div className={cn(buttonVariants({ variant: "ghost" }))}>
             <Icons.langSwitch className="h-4 w-4" />
-            <span className="sr-only">Language</span>
+            <span className="sr-only">{t("language")}</span>
           </div>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuLabel>Language</DropdownMenuLabel>
+        <DropdownMenuLabel>{t("language")}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem
@@ -46,7 +48,7 @@ export function LangSwitch() {
                   : "text-foreground/50"
               )}
             >
-              English
+              {t("english")}
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem
@@ -62,7 +64,7 @@ export function LangSwitch() {
                   : "text-foreground/50"
               )}
             >
-              Spanish
+              {t("spanish")}
             </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
