@@ -1,0 +1,52 @@
+---
+title: Sobre contar etiquetas
+description: Analizando una manera inteligente de contar etiquetas en publicaciones.
+date: 2024-05-06
+tags: ["javascript"]
+published: true
+---
+
+# Código
+
+```js
+export function getAllTags(posts: Array<Post>) {
+  const tags: Record<string, number> = {};
+  posts.forEach((post) => {
+    post.tags?.forEach((tag) => {
+      tags[tag] = (tags[tag] ?? 0) + 1;
+    });
+  });
+  return tags;
+}
+```
+
+## Desglosándolo
+
+En esta función lo que hacemos es:
+
+1. Inicializamos un Record (par de clave, valor) que almacenará dos elementos: una cadena y un número.
+2. Luego, pasamos por todas las publicaciones que tenemos y realizamos el conteo de las etiquetas.
+3. Por ejemplo, si tenemos los siguientes elementos de publicación:
+
+```js
+const posts: Post[] = [
+  { id: 1, title: "Publicación 1", tags: ["react", "code"] },
+  { id: 2, title: "Publicación 2", tags: ["javascript", "code"] },
+  { id: 3, title: "Publicación 3", tags: ["react", "javascript"] },
+];
+```
+
+4. Nuestra salida será algo como:
+
+```js
+{
+  "react": 2,
+  "code": 2,
+  "javascript": 2
+}
+```
+
+Ten en cuenta que, cada vez que actualizamos el objeto Record de etiquetas, estamos haciendo algo como esto:
+
+- tags[tag] accede al número actual en el registro para esa etiqueta específica, por ejemplo, "react": 1. Si hay un recuento, lo aumenta en 1.
+- si no hay ningún valor o las etiquetas son undefined, entonces inicializa su valor y comienza con 1.

@@ -1,0 +1,64 @@
+---
+title: Cerrar usando la tecla "ESC" en React
+description: O cómo ocultar un modal usando el teclado chad en lugar del virgin button.
+date: 2024-04-23
+tags: ["react"]
+published: true
+---
+
+Esta es parte de la lógica de implementación para un portafolio web. Puedes visitarlo en <a target="_blank" href="https://legacy-portfolio-miuler.vercel.app/">/miulerbm</a>.
+
+La capacidad de cerrar el modal del formulario al presionar “Esc”. Para hacer esto, utilicé un hook useEffect, que escucha los cambios en la función exitModal para ejecutarse.
+En este contexto, exitModal es una función global definida usando la función "createContext" de React.
+
+```tsx
+"use client";
+
+import Contact from "@/static/Contact";
+import Close from "../menu/elements/Close";
+import { useGlobalState } from "@/contexts/GlobalStateContext";
+import { useEffect } from "react";
+
+function Modal() {
+  const { isModalOpen, exitModal } = useGlobalState();
+
+  // Añadiendo una característica para cerrar el modal con ESC:
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        exitModal();
+      }
+    }
+
+    // Añadiendo el event listener:
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      // Remover el event listener cuando el componente se desmonte:
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [exitModal]);
+
+  return (
+    <>
+      {isModalOpen ? (
+        <>
+          <div className="fixed top-0 right-0 p-2 z-[101]" onClick={exitModal}>
+            <Close />
+          </div>
+          <div className="fixed text-white text-4xl  bg-black backdrop-blur-md bg-opacity-40 w-full h-screen min-h-screen z-[100]">
+            <Contact />
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
+    </>
+  );
+}
+
+export default Modal;
+```
+
+- Primero, definimos una función de callback llamada handleKeyDown, que recibirá un KeyboardEvent como entrada y, si la tecla presionada es “Escape”, ejecutará la función exitModal, que es proporcionada por el GlobalStateContext.
+- También necesitamos agregar un event listener para saber cuándo se está presionando una tecla. Y luego, cuando el componente se desmonte, necesitamos remover ese event listener.

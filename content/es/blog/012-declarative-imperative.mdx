@@ -1,0 +1,84 @@
+---
+title: Programación declarativa vs imperativa
+description: Cómo React te hace la vida más fácil.
+date: 2024-06-04
+tags: ["react"]
+published: true
+---
+
+# Introducción
+
+Construir aplicaciones web y móviles modernas implica muchos desafíos, desde manejar interfaces de usuario complejas hasta garantizar eficiencia y capacidad de respuesta. Hubo un tiempo en el que los desarrolladores necesitaban construir la interacción del usuario diciéndole al navegador qué, cómo y cuándo mostrar algo al usuario. Hoy en día, gracias a React, esto ha cambiado para mejor.
+
+## La Forma Antigua
+
+El enfoque tradicional para el desarrollo web consistía en la Programación Imperativa, veamos el siguiente código:
+
+```html
+<html>
+  <body>
+    <div id="app"></div>
+    <script type="text/javascript">
+      // Seleccionando el elemento de la aplicación
+      const app = document.getElementById("app");
+
+      // Creando un nuevo elemento h1
+      const header = document.createElement("h1");
+
+      // Crear un nuevo nodo de texto para el elemento H1
+      const text = "Desarrollar. Previsualizar. Publicar";
+      const headerContent = document.createTextNode(text);
+
+      // Agregar el texto al elemento H1
+      header.appendChild(headerContent);
+
+      // Colocar el elemento H1 dentro del div
+      app.appendChild(header);
+    </script>
+  </body>
+</html>
+```
+
+Este fragmento fue escrito utilizando la programación imperativa. Puedes ver cómo el desarrollador interactúa directamente con el DOM mediante la adición de hijos usando instrucciones detalladas. Este enfoque tiene múltiples pasos para tareas simples y es propenso a errores.
+
+<aside>
+  💡 Con este enfoque, los desarrolladores solían pasar mucho tiempo escribiendo
+  instrucciones para decirle a la computadora **cómo** debería hacer las cosas.
+  Pero ¿no sería agradable describir **qué** quieres mostrar y dejar que la
+  computadora descubra **cómo** actualizar el DOM?
+</aside>
+
+## El enfoque de React (Programación Declarativa)
+
+Veamos cómo React abordaría esta situación:
+
+```tsx
+import React from "react";
+import ReactDOM from "react-dom";
+
+function App() {
+  return (
+    <div>
+      <h1>Desarrollar. Previsualizar. Publicar</h1>
+    </div>
+  );
+}
+
+ReactDOM.render(<App />, document.getElementById("app"));
+```
+
+La versión de React es mucho más fácil y limpia. Así es como lo hace:
+
+1. Simplicidad y Legibilidad: La sintaxis declarativa de React hace que el código sea más legible y fácil de entender. Los desarrolladores pueden comprender rápidamente la estructura de la interfaz de usuario y realizar cambios sin sumergirse en la manipulación del DOM a nivel bajo.
+
+2. Arquitectura Basada en Componentes: React fomenta la descomposición de la interfaz de usuario en componentes reutilizables. Este enfoque modular promueve la reutilización de código, un mantenimiento más sencillo y una mejor organización del código base.
+
+3. Gestión del Estado: React gestiona eficientemente el estado de la aplicación. Los desarrolladores pueden centrarse en la lógica de la aplicación, y React se encarga de actualizar la interfaz de usuario cuando el estado cambia, garantizando una experiencia de usuario fluida.
+
+4. Virtual DOM: El Virtual DOM de React mejora el rendimiento al minimizar las manipulaciones directas del DOM real. Agrupa las actualizaciones y las aplica de manera eficiente, lo que resulta en aplicaciones más rápidas y receptivas.
+
+5. Comunidad y Ecosistema: React tiene una comunidad vasta y activa, que proporciona una gran cantidad de recursos, bibliotecas y herramientas que simplifican el desarrollo. Desde bibliotecas de gestión del estado como Redux hasta soluciones de estilo como Styled Components, el ecosistema de React tiene soluciones para varios desafíos.
+
+# Conclusión
+
+React revoluciona la forma en que los desarrolladores construyen aplicaciones web al simplificar el proceso de desarrollo y mejorar la productividad. Al adoptar un enfoque declarativo, utilizando una arquitectura basada en componentes y gestionando eficientemente el estado y el DOM, React permite a los desarrolladores centrarse en lo que más importa: construir grandes experiencias de usuario.

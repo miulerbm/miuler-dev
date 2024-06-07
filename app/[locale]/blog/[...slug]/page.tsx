@@ -99,8 +99,8 @@ export default async function PostPage({ params }: PostPageProps) {
       <hr className="my-4" />
       <MDXContent code={post.body} />
       <div>
-        <a className="hover:underline" href={`/${locale}/blog`}>
-          Volver
+        <a className="no-underline hover:underline" href={`/${locale}/blog`}>
+          ←
         </a>
       </div>
     </article>

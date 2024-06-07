@@ -1,0 +1,66 @@
+---
+title: Pasando Props de Astro a través de componentes
+description: Cómo propagar props de un componente padre a un hijo en Astro.
+date: 2024-04-24
+tags: ["astro"]
+published: true
+---
+
+## Definiendo los valores que vamos a pasar
+
+Primero, definimos un objeto constante que tendrá todos los valores que necesitaremos en el otro componente.
+En este caso, el componente que está pasando las props es MainLayout. Y las pasa a MainHead.
+
+```js
+---
+const {
+  // Estos son valores predeterminados
+  title = "Mi Blog en Astro",
+  description = "Mi viaje como desarrollador web",
+  image,
+  frontmatter,
+  robots,
+} = Astro.props;
+---
+
+<html lang="es">
+  <MainHead {title} {description} {image} {frontmatter} {robots} />
+  <body>
+    <Nav />
+    <main>
+      <slot> Texto Predeterminado</slot>
+    </main>
+    <Footer />
+  </body>
+</html>
+```
+
+MainHead:
+
+```js
+---
+const { title, description, image, frontmatter, robots } = Astro.props;
+---
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width" />
+  <meta name="generator" content={Astro.generator} />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+
+  <Seo {title} {description} url={Astro.url} {image} {frontmatter} {robots} />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  /><link
+    href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    rel="stylesheet"
+  />
+</head>
+```
+
+Así de fácil, podemos definir algunos valores que necesitamos en un componente hijo y pasarlos con la variable Astro.props.

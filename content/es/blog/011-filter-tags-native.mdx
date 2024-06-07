@@ -1,0 +1,86 @@
+---
+title: Filtrado por etiquetas en React Native
+description: Creación de un filtro de etiquetas para una pantalla de lista de lugares en React Native.
+date: 2024-05-20
+tags: ["react-native"]
+published: true
+---
+
+# Introducción
+
+En este post, veremos cómo implementar un componente de filtro por etiquetas. En este caso, el filtrado se basa en generar un objeto que se enviará a un punto final que procesará el objeto y devolverá los datos filtrados.
+
+## Objetivo
+
+Para hacer funcionar este filtro, generaremos el siguiente objeto:
+
+```js
+data = {
+  preferences: [
+    { code: "001", name: "preferencia1" },
+    { code: "002", name: "preferencia2" },
+    { code: "003", name: "preferencia3" },
+  ],
+};
+```
+
+Esto se puede hacer utilizando un formulario de React. Esta biblioteca nos proporciona métodos para registrar datos dentro de un formulario. Esto es ideal para nuestro caso de uso.
+El fragmento de código para los elementos de botón es:
+
+```tsx
+const preferencesData: Preference[] = [
+  { code: "p001", name: "Playa" },
+  { code: "p002", name: "Montañas" },
+  { code: "p003", name: "Lagos" },
+  { code: "p004", name: "Ciudad" },
+];
+
+const { control, handleSubmit, setValue, getValues } = useForm({
+  resolver: zodResolver(schema),
+});
+
+const [preferences, setPreferences] = useState<Preference[]>([]);
+
+<View style={styles.buttonContainer}>
+  {preferencesData.map((preference) => (
+    <View key={preference.code} style={styles.buttonWrapper}>
+      <Button
+        style={[
+          styles.button,
+          {
+            backgroundColor: isPreferenceSelected(preference)
+              ? "orange"
+              : "#e5e5e5",
+          },
+        ]}
+        onPress={() => togglePreference(preference)}
+      >
+        <Text>{preference.name}</Text>
+      </Button>
+    </View>
+  ))}
+</View>;
+```
+
+En este código, recorremos todas nuestras etiquetas disponibles y renderizamos botones que alternarán la preferencia (agregarán o eliminarán la preferencia actual de una lista) si se presionan.
+
+## togglePreference
+
+Esta función se implementa de la siguiente manera:
+
+```tsx
+const togglePreference = (preference: Preference) => {
+  const newPreferences = preferences.find((p) => p.code === preference.code)
+    ? preferences.filter((p) => p.code !== preference.code)
+    : [...preferences, preference];
+
+  setPreferences(newPreferences);
+  setValue("preferences", newPreferences);
+};
+```
+
+Cuando presionamos un botón de preferencia, primero evaluamos si ese elemento ya está en nuestro estado de preferencias (una lista de preferencias). Si ya está dentro de la lista, lo eliminamos tanto de la lista sobrescribiendo las nuevas preferencias con una nueva lista que son las preferencias actuales y filtramos la preferencia presionada. Si la preferencia presionada no está en la lista, la agregamos a la lista estableciendo nuestra variable newPreferences como las preferencias actuales más la preferencia presionada.
+
+Finalmente, usamos `setValue` del gancho `useForm` para establecer nuestros valores.
+
+Al hacer esto, podemos implementar el objeto de filtrado que se enviará a nuestros puntos finales del backend para obtener los datos requeridos.

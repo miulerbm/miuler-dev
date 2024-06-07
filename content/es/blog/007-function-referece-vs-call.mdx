@@ -1,0 +1,55 @@
+---
+title: Llamada de Función vs. Referencia de Función
+description: Cuándo usar "() => fn" y "fn"
+date: 2024-05-09
+tags: ["react"]
+published: true
+---
+
+# Introducción
+
+Digamos que queremos crear un botón simple para aumentar un contador y usamos un gancho useState de React. Como el siguiente:
+
+```tsx
+<button onClick={setCounter(counter + 1)}>más</button>
+```
+
+Esto causará un fallo en nuestra aplicación, porque los controladores de eventos como _*onClick*_ son en realidad funciones o referencias de funciones, y de hecho, `setCounter(counter+1)` es una llamada de función.
+
+# ¿Por qué esto no funciona?
+
+En muchas situaciones, pasar una llamada de función puede funcionar, pero en muchas otras no lo hace debido a cómo React responde cuando se llama a una función. Renderiza el componente una y otra vez causando un bucle infinito.
+
+# ¿Qué funciona?
+
+Un buen ejemplo de abordar este problema rápidamente sería:
+
+```tsx
+<button onClick={() => setCounter(counter + 1)}>más</button>
+```
+
+Aquí estamos definiendo el controlador de eventos como una función.
+
+## Refactorizando el código
+
+Una forma más organizada sería así:
+
+```tsx
+const App = () => {
+  const [counter, setCounter] = useState(0);
+
+  const increaseByOne = () => setCounter(counter + 1);
+
+  const setToZero = () => setCounter(0);
+
+  return (
+    <div>
+      <div>{counter}</div>
+      <button onClick={increaseByOne}>más</button>
+      <button onClick={setToZero}>cero</button>
+    </div>
+  );
+};
+```
+
+En este código, hemos separado los controladores de eventos en funciones diferentes y los pasamos como una referencia de función. Así es como se definen correctamente.

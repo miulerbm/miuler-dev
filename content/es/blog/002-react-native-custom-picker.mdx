@@ -1,0 +1,122 @@
+---
+title: Ejemplo de un Selector de Año en React Native
+description: Usando la biblioteca react-native-picker/picker para implementar un selector personalizado.
+date: 2024-04-06
+tags: ["react-native"]
+published: true
+---
+
+# Introducción
+
+El selector predeterminado proporcionado por la biblioteca de selectores de React Native no es tan personalizable como nos gustaría.
+Para abordar este problema, podemos definir algunas propiedades. Por ejemplo, ocultar el elemento de selector predeterminado.
+
+## Ejemplo de Código
+
+```tsx
+import { View, Text, TouchableOpacity } from "react-native";
+import React, { useState, useRef } from "react";
+import { Picker } from "@react-native-picker/picker";
+
+const renderYears = () =>
+  [
+    ...Array.from(
+      { length: new Date().getFullYear() - 1900 },
+      (value, index) => 1900 + index
+    ),
+  ]
+    .reverse()
+    .map((n) => <Picker.Item key={n + ""} label={n + ""} value={n + ""} />);
+
+const YearPicker = () => {
+  const ref = useRef();
+  const [selectedYear, setSelectedYear] = useState();
+
+  const handleOpenPicker = () => {
+    ref.current.focus();
+  };
+
+  const handleClosePicker = () => {
+    ref.current.blur();
+  };
+
+  return (
+    <>
+      <TouchableOpacity
+        onPress={handleOpenPicker}
+        style={{
+          backgroundColor: "pink",
+          height: 48,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Text>Select Year</Text>
+        <Picker
+          style={{ display: "none", opacity: 0, height: 0, width: 0 }}
+          ref={ref}
+          selectedValue={selectedYear}
+          onValueChange={(v, i) => setSelectedYear(v)}
+        >
+          {renderYears()}
+        </Picker>
+      </TouchableOpacity>
+      <Text>{selectedYear}</Text>
+    </>
+  );
+};
+
+export default YearPicker;
+```
+
+Con este enfoque, podemos usar la biblioteca de selectores de React Native y darle al selector predeterminado un estilo más detallado. Con esto, tenemos un componente personalizado modular que podemos gestionar según nuestras necesidades.
+Por ejemplo. Un selector de idioma:
+
+```tsx
+<View
+  style={{
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderBottomColor: colors.border,
+    borderBottomWidth: 1,
+    height: 60,
+  }}
+>
+  <Text body1>{t("language")}</Text>
+  <TouchableOpacity
+    onPress={handleOpenPicker}
+    style={{
+      height: 48,
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "pink",
+      display: "flex",
+      flexDirection: "row",
+    }}
+  >
+    <Text body1 grayColor>
+      {selectedLanguage}
+    </Text>
+    <Icon
+      name="angle-right"
+      size={18}
+      color={colors.primary}
+      style={{ marginLeft: 5 }}
+      enableRTL={true}
+    />
+    <Picker
+      style={{ display: "none", opacity: 0, height: 0, width: 0 }}
+      ref={ref}
+      mode="dropdown"
+      selectedValue={selectedLanguage}
+      onValueChange={(v, i) => setSelectedLanguage(v!)}
+    >
+      <Picker.Item label="Español" value="Español" />
+      <Picker.Item label="Inglés" value="Inglés" />
+      <Picker.Item label="Francés" value="Francés" />
+      <Picker.Item label="Portugués" value="Portugués" />
+    </Picker>
+  </TouchableOpacity>
+</View>
+```

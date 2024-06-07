@@ -1,0 +1,184 @@
+---
+title: Manejo de Cargas de Archivos en React con Dropzone
+description: Cómo usar la biblioteca Dropzone en una aplicación React para manejar cargas de archivos.
+date: 2024-05-13
+tags: ["react"]
+published: true
+---
+
+# Introducción
+
+En esta publicación de blog, exploraremos cómo usar la biblioteca Dropzone en una aplicación React para manejar subidas de archivos. Analizaremos el código de ejemplo proporcionado para comprender cómo Dropzone se integra con React para proporcionar una experiencia de carga de archivos mediante arrastrar y soltar.
+
+## Configuración de Dropzone
+
+Dropzone es una biblioteca popular para manejar cargas de archivos en aplicaciones web. Proporciona una interfaz fácil de usar para arrastrar y soltar archivos, y admite una variedad de configuraciones para manejar diferentes tipos de archivos y reglas de validación.
+
+## Desglose del Código de Ejemplo
+
+Veamos el código de ejemplo proporcionado, que demuestra un componente React para cargar imágenes usando Dropzone.
+
+### Importación de Bibliotecas y Componentes Necesarios
+
+```javascript
+"use client";
+
+import { Progress } from "@/components/ui/progress";
+import { useToast } from "@/components/ui/use-toast";
+import { useUploadThing } from "@/lib/uploadthing";
+import { cn } from "@/lib/utils";
+import { Image, Loader2, MousePointerSquareDashedIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState, useTransition } from "react";
+import Dropzone, { FileRejection } from "react-dropzone";
+```
+
+Aquí, importamos varios componentes y ganchos, incluyendo:
+
+- `Progress` para mostrar el progreso de la carga.
+- `useToast` para mostrar notificaciones de aviso.
+- `useUploadThing` para manejar el proceso de carga.
+- Iconos de `lucide-react`.
+- Ganchos de React como `useState` y `useTransition`.
+- `Dropzone` y `FileRejection` de `react-dropzone`.
+
+### Estado del Componente y Hooks
+
+```javascript
+const Page = () => {
+  const { toast } = useToast();
+  const [isDragOver, setIsDragOver] = useState<boolean>(false);
+  const [uploadProgress, setUploadProgress] = useState<number>(0);
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+```
+
+El componente mantiene varias variables de estado:
+
+- `isDragOver` para indicar si se está arrastrando un archivo sobre la zona de soltar.
+- `uploadProgress` para hacer un seguimiento del progreso de la carga del archivo.
+- `isPending` para gestionar el estado de transición durante la navegación.
+
+### Manejo de Cargas de Archivos
+
+```javascript
+const { startUpload, isUploading } = useUploadThing("imageUploader", {
+  onClientUploadComplete: ([data]) => {
+    const configId = data.serverData.configId;
+    startTransition(() => {
+      router.push(`/configure/design?id=${configId}`);
+    });
+  },
+  onUploadProgress(p) {
+    setUploadProgress(p);
+  },
+});
+```
+
+El gancho `useUploadThing` está configurado para "imageUploader" y proporciona la función `startUpload` para iniciar las cargas. También realiza un seguimiento del progreso de la carga y maneja la finalización redirigiendo a una nueva página con el ID de configuración del archivo cargado.
+
+#### Manejo de Archivos Rechazados
+
+```javascript
+const onDropRejected = (rejectedFiles: FileRejection[]) => {
+  const [file] = rejectedFiles;
+  setIsDragOver(false);
+  toast({
+    title: `El tipo ${file.file.type} no es compatible`,
+    description: "Por favor, elija una imagen PNG, JPG o JPEG en su lugar.",
+    variant: "destructive",
+  });
+};
+```
+
+Cuando se rechaza un archivo (por ejemplo, debido a un tipo de archivo no compatible), el componente muestra una notificación de aviso con un mensaje de error.
+
+#### Manejo de Archivos Aceptados
+
+```javascript
+const onDropAccepted = (acceptedFiles: File[]) => {
+  startUpload(acceptedFiles, { configId: undefined });
+  setIsDragOver(false);
+};
+```
+
+Cuando se acepta un archivo, el componente inicia el proceso de carga inmediatamente.
+
+## Componente Dropzone
+
+```javascript
+return (
+  <div
+    className={cn(
+      "relative h-full flex-1 my-16 w-full rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:rounded-2xl flex justify-center flex-col items-center",
+      {
+        "ring-blue-900/25 bg-blue-900/10": isDragOver,
+      }
+    )}
+  >
+    <div className="relative flex flex-1 flex-col items-center justify-center w-full">
+      <Dropzone
+        onDropRejected={onDropRejected}
+        onDropAccepted={onDropAccepted}
+        accept={{
+          "image/png": [".png"],
+          "image/jpeg": [".jpeg"],
+          "image/jpg": [".jpg"],
+        }}
+        onDragEnter={() => setIsDragOver(true)}
+        onDragLeave={() => setIsDragOver(false)}
+      >
+        {({ getRootProps, getInputProps }) => (
+          <div
+            className="h-full w-full flex-1 flex flex-col items-center justify-center"
+            {...getRootProps()}
+          >
+            <input {...getInputProps()} />
+            {isDragOver ? (
+              <MousePointerSquareDashedIcon className="h-6 w-6 text-zinc-500 mb-2" />
+            ) : isUploading || isPending ? (
+              <Loader2 className="animate-spin h-6 w-6 text-zinc-500 mb-2" />
+            ) : (
+              <Image className="h-6 w-6 text-zinc-500 mb-2" />
+            )}
+            <div className="flex flex-col justify-center mb-2 text-sm text-zinc-700">
+              {isUploading ? (
+                <div className="flex flex-col items-center">
+                  <p>Cargando...</p>
+                  <Progress
+                    value={uploadProgress}
+                    className="mt-2 w-40 h-2 bg-gray-300"
+                  />
+                </div>
+              ) : isPending ? (
+                <div className="flex flex-col items-center">
+                  <p>Redireccionando, por favor espere...</p>
+                </div>
+              ) : isDragOver ? (
+                <p>
+                  <span className="font-semibold">Suelte el archivo</span> para
+                  cargar
+                </p>
+              ) : (
+                <p>
+                  <span className="font-semibold">Haga clic para cargar</span> o
+                  arrastre y suelte
+                </p>
+              )}
+            </div>
+            {isPending ? null : (
+              <p className="text-xs text-zinc-500">PNG, JPG, JPEG</p>
+            )}
+          </div>
+        )}
+      </Dropzone>
+    </div>
+  </div>
+);
+```
+
+El componente `Dropzone` proporciona la interfaz de arrastrar y soltar. Acepta solo archivos PNG, JPG y JPEG. La apariencia y el contenido de la zona de soltar cambian según el estado actual (arrastrar, cargar, etc.).
+
+### Conclusión
+
+Usar Dropzone en una aplicación React simplifica el proceso de manejar cargas de archivos. El código de ejemplo proporcionado demuestra cómo integrar Dropzone con un componente React, administrar las transiciones de estado y manejar la aceptación y el rechazo de archivos. Siguiendo este enfoque, puedes crear una experiencia de carga de archivos robusta y fácil de usar en tu aplicación web.

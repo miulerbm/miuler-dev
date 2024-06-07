@@ -1,0 +1,134 @@
+---
+title: Comprendiendo las Authentication Callbacks en Next.js con Kinde
+description: Cómo implementar una página de autenticación de manera fácil y rápida.
+date: 2024-05-15
+tags: ["next", "auth"]
+published: true
+---
+
+### Comprendiendo las Devoluciones de Autenticación en Next.js con Kinde
+
+En una aplicación web moderna, manejar la autenticación es crucial. En esta publicación del blog, profundizaremos en cómo manejar una devolución de autenticación en una aplicación Next.js utilizando Kinde. Analizaremos el código proporcionado que incluye dos archivos: `actions.ts` y `page.tsx`, ubicados en la carpeta `auth-callback` dentro del directorio `app`.
+
+#### Resumen
+
+- **`actions.ts`**: Este archivo contiene la lógica del lado del servidor para verificar y administrar el estado de autenticación del usuario.
+- **`page.tsx`**: Este archivo del lado del cliente maneja la interfaz de usuario y las redirecciones según el estado de autenticación.
+
+Vamos a analizar cada parte del código para entender cómo funciona.
+
+### `actions.ts`: Lógica de Autenticación del Lado del Servidor
+
+```typescript
+"use server";
+
+import { db } from "@/db";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+
+export const getAuthStatus = async () => {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
+  if (!user?.id || !user.email) {
+    throw new Error("Datos de usuario no válidos");
+  }
+
+  const existingUser = await db.user.findFirst({
+    where: { id: user.id },
+  });
+
+  if (!existingUser) {
+    await db.user.create({
+      data: {
+        id: user.id,
+        email: user.email,
+      },
+    });
+  }
+
+  return { success: true };
+};
+```
+
+#### Puntos Clave:
+
+1. **Sesión del Servidor Kinde**: La función `getKindeServerSession` se utiliza para obtener la sesión del servidor actual. Esto es crucial para acceder de manera segura a la información del usuario en el lado del servidor.
+2. **Validación de Usuario**: El método `getUser` recupera los datos del usuario. Si los datos del usuario son inválidos (es decir, falta `id` o `email`), se lanza un error.
+3. **Operaciones en la Base de Datos**: El código verifica si el usuario ya existe en la base de datos usando `db.user.findFirst`. Si el usuario no existe, se crea un nuevo registro de usuario.
+4. **Valor de Retorno**: La función devuelve un estado de éxito si todo está correcto.
+
+### `page.tsx`: Devolución de Autenticación del Lado del Cliente
+
+```tsx
+"use client";
+
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { getAuthStatus } from "./actions";
+import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
+
+const Page = () => {
+  const [configId, setConfigId] = useState<string | null>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const configurationId = localStorage.getItem("configurationId");
+    if (configurationId) setConfigId(configurationId);
+  }, []);
+
+  const { data } = useQuery({
+    queryKey: ["auth-callback"],
+    queryFn: async () => await getAuthStatus(),
+    retry: true,
+    retryDelay: 500,
+  });
+
+  if (data?.success) {
+    if (configId) {
+      localStorage.removeItem("configurationId");
+      router.push(`/configure/preview?id=${configId}`);
+    } else {
+      router.push("/");
+    }
+  }
+
+  return (
+    <div className="w-full mt-24 flex justify-center">
+      <div className="flex flex-col items-center gap-2">
+        <Loader2 className="h-8 w-8 animate-spin text-zinc-500" />
+        <h3 className="font-semibold text-xl">Iniciando sesión...</h3>
+        <p>Serás redirigido automáticamente.</p>
+      </div>
+    </div>
+  );
+};
+
+export default Page;
+```
+
+#### Puntos Clave:
+
+1. **Gestión de Estado**: El componente mantiene un estado `configId` para almacenar un ID de configuración obtenido de `localStorage`.
+2. **Hook de Efecto**: El hook `useEffect` se ejecuta una vez al montar el componente para obtener el `configurationId` de `localStorage` y establecerlo en el estado.
+3. **Consulta Reactiva**: El hook `useQuery` de `@tanstack/react-query` se utiliza para llamar a la función `getAuthStatus`. Este hook maneja la solicitud al servidor y gestiona los estados de carga, error y éxito.
+4. **Lógica de Redirección**: Si la autenticación es exitosa (`data?.success`), el usuario es redirigido según si `configId` está presente o no. Si `configId` está presente, se elimina de `localStorage` y se redirige al usuario a una página de vista previa de configuración. De lo contrario, se redirige al usuario a la página de inicio.
+5. **Indicador de Carga**: Mientras espera la autenticación, se muestra un spinner de carga y un mensaje al usuario.
+
+### Ampliando las Devoluciones de Autenticación
+
+#### Consideraciones de Seguridad
+
+Manejar la autenticación tanto en el servidor como en el cliente es fundamental para la seguridad. El código del lado del servidor asegura que los datos del usuario se validen e interactúen de manera segura con la base de datos. En el lado del cliente, las operaciones sensibles como almacenar IDs de configuración deben gestionarse con precaución, asegurando que solo se almacenen y accedan temporalmente.
+
+#### Experiencia del Usuario
+
+Una experiencia de usuario fluida durante la autenticación es crucial. El indicador de carga y la redirección automática ayudan a proporcionar retroalimentación al usuario, haciendo que el proceso de autenticación se sienta fluido e intuitivo.
+
+#### Manejo de Errores
+
+Si bien el código proporcionado maneja errores básicos, como datos de usuario no válidos, es esencial expandir el manejo de errores para cubrir problemas de red, errores de base de datos y otros problemas potenciales. Implementar un manejo de errores integral garantiza que la aplicación siga siendo robusta y fácil de usar.
+
+### Conclusión
+
+Esta publicación demuestra una manera efectiva de manejar devoluciones de autenticación utilizando Kinde. Al separar la lógica del lado del servidor y el manejo del lado del cliente, garantiza seguridad y una experiencia de usuario fluida. Comprender y expandir estos conceptos puede ayudar en la construcción de aplicaciones web más seguras y fáciles de usar.
