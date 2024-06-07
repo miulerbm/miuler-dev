@@ -48,7 +48,7 @@ export default function CommandSearch({ locale }: CommandSearchProps) {
     <>
       <Button
         onClick={() => setIsOpen(true)}
-        className="p-2 border border-gray-300 rounded-md"
+        className="p-2 border border-gray-300 rounded-md hidden md:block"
       >
         {t("searchPosts")} ⌘K
       </Button>
