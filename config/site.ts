@@ -1,12 +1,12 @@
 export const siteConfig = {
   name: "/miulerbm",
-  url: "https://miuler-blog.vercel.app/",
-  description: "Nextjs 14 blog using velite, tailwind and shadcn",
+  url: "https://miulerbm.vercel.app/",
+  description: "Miuler Blas personal website.",
   author: "miulerbm",
   links: {
     twitter: "https://twitter.com/blas_miuler",
     github: "https://github.com/miulerbm",
-    personalSite: "https://miuler-blog.vercel.app/",
+    personalSite: "https://miulerbm.vercel.app/",
     linkedin: "https://www.linkedin.com/in/miulerbm/",
   },
 };
