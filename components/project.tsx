@@ -1,5 +1,6 @@
 import { Monitor, Smartphone } from "lucide-react";
 import Tag from "./about-tag";
+import Image from "next/image";
 
 function Project({
   headline,
@@ -30,7 +31,13 @@ function Project({
           </div>
         )}
 
-        <img className="rounded-lg object-cover" alt={text} src={image} />
+        <Image
+          className="rounded-lg object-cover"
+          alt={text}
+          src={image}
+          width={500}
+          height={375}
+        />
         <div className="p-4 rounded-lg">
           <div className="text-xl font-medium flex gap-2">
             {headline}
