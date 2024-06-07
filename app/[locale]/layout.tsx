@@ -7,6 +7,7 @@ import { Providers } from "@/components/providers";
 import { siteConfig } from "@/config/site";
 import { SiteFooter } from "@/components/site-footer";
 import { NextIntlClientProvider, useMessages } from "next-intl";
+import PageTransition from "@/components/page-transition";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -45,7 +46,9 @@ export default function RootLayout({
           <Providers>
             <div className="relative flex min-h-dvh flex-col bg-background">
               <SiteHeader />
-              <main className="flex-1">{children}</main>
+              <PageTransition>
+                <main className="flex-1">{children}</main>
+              </PageTransition>
               <SiteFooter />
             </div>
           </Providers>
