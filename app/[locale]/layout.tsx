@@ -15,6 +15,20 @@ export const metadata: Metadata = {
   title: siteConfig.name,
   description: siteConfig.description,
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? siteConfig.url),
+  openGraph: {
+    type: "website",
+    url: process.env.NEXT_PUBLIC_APP_URL ?? siteConfig.url,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: [
+      {
+        url: `${process.env.NEXT_PUBLIC_APP_URL}images/og-image.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "Miuler's site",
+      },
+    ],
+  },
 };
 
 export const viewport: Viewport = {

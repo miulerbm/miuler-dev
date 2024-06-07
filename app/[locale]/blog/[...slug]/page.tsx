@@ -4,6 +4,7 @@ import { siteConfig } from "@/config/site";
 import { Tag } from "@/components/tag";
 import "@/styles/mdx.css";
 import { MDXContent } from "@/components/mdx-components";
+import { Metadata } from "next";
 
 interface PostPageProps {
   params: {
@@ -24,57 +25,57 @@ async function getPostFromParams(params: PostPageProps["params"]) {
   return post;
 }
 
-// export async function generateMetadata({
-//   params,
-// }: PostPageProps): Promise<Metadata> {
-//   const post = await getPostFromParams(params);
+export async function generateMetadata({
+  params,
+}: PostPageProps): Promise<Metadata> {
+  const post = await getPostFromParams(params);
 
-//   if (!post) {
-//     return {};
-//   }
+  if (!post) {
+    return {};
+  }
 
-//   const ogSearchParams = new URLSearchParams();
-//   ogSearchParams.set("title", post.title);
+  const ogSearchParams = new URLSearchParams();
+  ogSearchParams.set("title", post.title);
 
-//   return {
-//     title: post.title,
-//     description: post.description,
-//     authors: { name: siteConfig.author },
-//     openGraph: {
-//       title: post.title,
-//       description: post.description,
-//       type: "article",
-//       url: post.slug,
-//       images: [
-//         {
-//           url: `/api/og?${ogSearchParams.toString()}`,
-//           width: 1200,
-//           height: 630,
-//           alt: post.title,
-//         },
-//       ],
-//     },
-//     twitter: {
-//       card: "summary_large_image",
-//       title: post.title,
-//       description: post.description,
-//       images: [`/api/og?${ogSearchParams.toString()}`],
-//     },
-//   };
-// }
+  return {
+    title: post.title,
+    description: post.description,
+    authors: { name: siteConfig.author },
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      type: "article",
+      url: post.slug,
+      images: [
+        {
+          url: `/api/og?${ogSearchParams.toString()}`,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.description,
+      images: [`/api/og?${ogSearchParams.toString()}`],
+    },
+  };
+}
 
-// export async function generateStaticParams() {
-//   const enPosts = postsEn.map((post) => ({
-//     slug: post.slugAsParams.split("/"),
-//     locale: "en",
-//   }));
-//   const esPosts = postsEs.map((post) => ({
-//     slug: post.slugAsParams.split("/"),
-//     locale: "es",
-//   }));
+export async function generateStaticParams() {
+  const enPosts = postsEn.map((post) => ({
+    slug: post.slugAsParams.split("/"),
+    locale: "en",
+  }));
+  const esPosts = postsEs.map((post) => ({
+    slug: post.slugAsParams.split("/"),
+    locale: "es",
+  }));
 
-//   return [...enPosts, ...esPosts];
-// }
+  return [...enPosts, ...esPosts];
+}
 
 export default async function PostPage({ params }: PostPageProps) {
   const { locale } = params;
