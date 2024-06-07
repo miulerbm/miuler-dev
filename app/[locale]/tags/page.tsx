@@ -1,13 +1,19 @@
 "use client";
 
-import { getAllTags, sortTagsByCount } from "@/lib/utils";
 import { postsEn, postsEs } from "#site/content";
 import { Tag } from "@/components/tag";
+import { getAllTags, sortTagsByCount } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function TagPage() {
   const pathname = usePathname();
-  const locale = pathname.split("/")[1];
+  const [locale, setLocale] = useState("en");
+
+  useEffect(() => {
+    const pathLocale = pathname.split("/")[1];
+    setLocale(pathLocale);
+  }, [pathname]);
 
   const posts = locale === "es" ? postsEs : postsEn;
 

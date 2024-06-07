@@ -1,3 +1,5 @@
+"use client";
+
 import { postsEn, postsEs } from "#site/content";
 import { PostItem } from "@/components/post-item";
 import { Tag } from "@/components/tag";
@@ -9,7 +11,6 @@ import {
   sortTagsByCount,
 } from "@/lib/utils";
 import { slug } from "github-slugger";
-import { Metadata } from "next";
 
 interface TagPageProps {
   params: {
@@ -17,32 +18,6 @@ interface TagPageProps {
     locale: string;
   };
 }
-
-export async function generateMetadata({
-  params,
-}: TagPageProps): Promise<Metadata> {
-  const { tag } = params;
-  return {
-    title: tag,
-    description: `Posts on the topic of ${tag}`,
-  };
-}
-
-export const generateStaticParams = () => {
-  const enPosts = postsEn.map((post) => ({
-    tag: post.tags!.map((tag) => slug(tag)),
-    locale: "en",
-  }));
-
-  const esPosts = postsEs.map((post) => ({
-    tag: post.tags!.map((tag) => slug(tag)),
-    locale: "es",
-  }));
-
-  return [...enPosts, ...esPosts].flatMap(({ tag, locale }) =>
-    tag.map((t) => ({ tag: t, locale }))
-  );
-};
 
 export default function TagPage({ params }: TagPageProps) {
   const { tag, locale } = params;
@@ -58,7 +33,7 @@ export default function TagPage({ params }: TagPageProps) {
 
   return (
     <div className="container max-w-4xl py-6 lg:py-10">
-      <div className="flex flex-col items-start gap-4 md:flex-row md:justiy-between md:gap-8">
+      <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
         <div className="flex-1 space-y-4">
           <h1 className="inline-block font-black text-4xl lg:text-5xl capitalize">
             {title}

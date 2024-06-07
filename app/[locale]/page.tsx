@@ -1,12 +1,11 @@
 "use client";
 
-import { buttonVariants } from "@/components/ui/button";
-import { siteConfig } from "@/config/site";
-import { cn, sortPosts } from "@/lib/utils";
 import { postsEn, postsEs } from "#site/content";
-import Link from "next/link";
 import { PostItem } from "@/components/post-item";
+import { buttonVariants } from "@/components/ui/button";
+import { cn, sortPosts } from "@/lib/utils";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export default function Home() {
@@ -14,7 +13,10 @@ export default function Home() {
 
   const posts = pathname.includes("/es") ? postsEs : postsEn;
 
-  const latestPosts = sortPosts(posts).slice(0, 5);
+  // Asegurarse de que posts no sea undefined
+  const sortedPosts = posts ? sortPosts(posts) : [];
+
+  const latestPosts = sortedPosts!.slice(0, 5);
   const t = useTranslations();
 
   const locale = pathname.split("/")[1];

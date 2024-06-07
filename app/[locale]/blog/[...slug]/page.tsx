@@ -1,11 +1,11 @@
-import { postsEn, postsEs } from "#site/content";
-import { MDXContent } from "@/components/mdx-components";
+import { unstable_setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { postsEn, postsEs } from "#site/content";
 import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import { Tag } from "@/components/tag";
 import "@/styles/mdx.css";
-import { log } from "console";
+import { MDXContent } from "@/components/mdx-components";
 
 interface PostPageProps {
   params: {
@@ -19,10 +19,7 @@ async function getPostFromParams(params: PostPageProps["params"]) {
   const slugStr = slug.join("/");
 
   const posts = locale === "es" ? postsEs : postsEn;
-
-  const post = posts.find((post) => {
-    return post.slugAsParams === locale + "/blog/" + slugStr;
-  });
+  const post = posts.find((post) => post.slugAsParams === slugStr);
 
   return post;
 }
@@ -66,9 +63,7 @@ export async function generateMetadata({
   };
 }
 
-export async function generateStaticParams(): Promise<
-  PostPageProps["params"][]
-> {
+export async function generateStaticParams() {
   const enPosts = postsEn.map((post) => ({
     slug: post.slugAsParams.split("/"),
     locale: "en",
@@ -82,10 +77,10 @@ export async function generateStaticParams(): Promise<
 }
 
 export default async function PostPage({ params }: PostPageProps) {
-  const post = await getPostFromParams(params);
   const { locale } = params;
+  unstable_setRequestLocale(locale);
 
-  log("post", post);
+  const post = await getPostFromParams(params);
 
   if (!post || !post.published) {
     notFound();

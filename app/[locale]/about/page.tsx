@@ -14,8 +14,6 @@ export default function AboutPage() {
   const t = useTranslations();
   const locale = usePathname();
 
-  console.log("locale", locale);
-
   return (
     <div className="container max-w-4xl py-6 lg:py-10">
       <div>
