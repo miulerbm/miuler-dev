@@ -15,8 +15,8 @@
       "title": "Programador",
       "company": "@ Inversac",
       "tasks": [
-        "Soporte de TI con Python y VBA para la escritura de scripts y la automatización de tareas.",
-        "Desarrollo de interfaces hombre-máquina usando TIA Portal.",
+        "Soporte TI con Python y VBA para scripting y automatización de tareas.",
+        "Desarrollo de interfaces HMI con TIA Portal.",
         "Programación de PLC en SCL, LADDER."
       ],
       "tags": ["SCL", "Ladder", "Tia Portal", "HMI", "PLC"],
@@ -36,7 +36,7 @@
       "title": "Ingeniero de TI",
       "company": "@ E&C",
       "tasks": [
-        "Soporte de back-office y scripting con Python, JavaScript y Macros de Visual Basic.",
+        "Soporte back-office y scripting con Python, JavaScript y Macros de Visual Basic.",
         "Diseño de ingeniería electromecánica en software CAD."
       ],
       "tags": ["Python", "Shell", "JavaScript", "VBA"],
