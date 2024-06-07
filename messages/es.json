@@ -14,5 +14,7 @@
   "readMore": "Leer más",
   "language": "Idioma",
   "english": "Inglés",
-  "spanish": "Español"
+  "spanish": "Español",
+  "searchPosts": "Buscar posts",
+  "noPostsFound": "Sin posts para mostrar"
 }

@@ -1,6 +1,7 @@
 // app/[locale]/blog/page.tsx
 "use client";
 import { postsEn, postsEs } from "#site/content";
+import CommandSearch from "@/components/command-search";
 import { PostItem } from "@/components/post-item";
 import { QueryPagination } from "@/components/query-pagination";
 import { Tag } from "@/components/tag";
@@ -8,7 +9,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getAllTags, sortPosts, sortTagsByCount } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
 
 const POSTS_PER_PAGE = 5;
 
@@ -19,7 +19,6 @@ interface BlogPageProps {
 }
 
 export default function BlogPage({ searchParams }: BlogPageProps) {
-  // const [searchQuery, setSearchQuery] = useState("");
   const currentPage = Number(searchParams?.page) || 1;
 
   const pathname = usePathname();
@@ -28,18 +27,6 @@ export default function BlogPage({ searchParams }: BlogPageProps) {
   const posts = locale === "es" ? postsEs : postsEn;
 
   const sortedPosts = sortPosts(posts.filter((post) => post.published));
-  // const normalizedSearchQuery = searchQuery.trim().toLowerCase();
-
-  // const filteredPosts = sortedPosts!.filter((post) => {
-  //   const titleMatch = post.title.toLowerCase().includes(normalizedSearchQuery);
-  //   const tagsMatch = post.tags.some((tag: string) =>
-  //     tag.toLowerCase().includes(normalizedSearchQuery)
-  //   );
-  //   const descriptionMatch = post.description
-  //     ? post.description.toLowerCase().includes(normalizedSearchQuery)
-  //     : false;
-  //   return titleMatch || tagsMatch || descriptionMatch;
-  // });
   const totalPages = Math.ceil(sortedPosts!.length / POSTS_PER_PAGE);
 
   const displayPosts = sortedPosts!.slice(
@@ -65,16 +52,8 @@ export default function BlogPage({ searchParams }: BlogPageProps) {
             {t("blogDescription")}
           </p>
         </div>
+        <CommandSearch locale={locale} />
       </div>
-      {/* <div className="my-4">
-        <input
-          type="text"
-          placeholder={"Search"} // Asumiendo que tienes una traducción para el placeholder
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded-md"
-        />
-      </div> */}
       <div className="grid grid-cols-12 gap-3 mt-8">
         <div className="col-span-12 col-start-1 sm:col-span-8">
           <hr />
@@ -96,7 +75,7 @@ export default function BlogPage({ searchParams }: BlogPageProps) {
               })}
             </ul>
           ) : (
-            <p>No posts</p>
+            <p>{t("noPostsFound")}</p>
           )}
           <QueryPagination
             totalPages={totalPages}

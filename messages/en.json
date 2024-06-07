@@ -14,5 +14,7 @@
   "readMore": "Read more",
   "language": "Language",
   "english": "English",
-  "spanish": "Spanish"
+  "spanish": "Spanish",
+  "searchPosts": "Search posts",
+  "noPostsFound": "No posts found"
 }

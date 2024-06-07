@@ -1,6 +1,7 @@
 "use client";
 
 import { postsEn, postsEs } from "#site/content";
+import CommandSearch from "@/components/command-search";
 import { PostItem } from "@/components/post-item";
 import { Tag } from "@/components/tag";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -39,6 +40,7 @@ export default function TagPage({ params }: TagPageProps) {
             {title}
           </h1>
         </div>
+        <CommandSearch locale={locale} />
       </div>
       <div className="grid grid-cols-12 gap-3 mt-8">
         <div className="col-span-12 col-start-1 sm:col-span-8">
