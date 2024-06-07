@@ -19,7 +19,7 @@ interface BlogPageProps {
 }
 
 export default function BlogPage({ searchParams }: BlogPageProps) {
-  const [searchQuery, setSearchQuery] = useState("");
+  // const [searchQuery, setSearchQuery] = useState("");
   const currentPage = Number(searchParams?.page) || 1;
 
   const pathname = usePathname();
@@ -28,26 +28,26 @@ export default function BlogPage({ searchParams }: BlogPageProps) {
   const posts = locale === "es" ? postsEs : postsEn;
 
   const sortedPosts = sortPosts(posts.filter((post) => post.published));
-  const normalizedSearchQuery = searchQuery.trim().toLowerCase();
+  // const normalizedSearchQuery = searchQuery.trim().toLowerCase();
 
-  const filteredPosts = sortedPosts!.filter((post) => {
-    const titleMatch = post.title.toLowerCase().includes(normalizedSearchQuery);
-    const tagsMatch = post.tags.some((tag: string) =>
-      tag.toLowerCase().includes(normalizedSearchQuery)
-    );
-    const descriptionMatch = post.description
-      ? post.description.toLowerCase().includes(normalizedSearchQuery)
-      : false;
-    return titleMatch || tagsMatch || descriptionMatch;
-  });
-  const totalPages = Math.ceil(filteredPosts!.length / POSTS_PER_PAGE);
+  // const filteredPosts = sortedPosts!.filter((post) => {
+  //   const titleMatch = post.title.toLowerCase().includes(normalizedSearchQuery);
+  //   const tagsMatch = post.tags.some((tag: string) =>
+  //     tag.toLowerCase().includes(normalizedSearchQuery)
+  //   );
+  //   const descriptionMatch = post.description
+  //     ? post.description.toLowerCase().includes(normalizedSearchQuery)
+  //     : false;
+  //   return titleMatch || tagsMatch || descriptionMatch;
+  // });
+  const totalPages = Math.ceil(sortedPosts!.length / POSTS_PER_PAGE);
 
-  const displayPosts = filteredPosts!.slice(
+  const displayPosts = sortedPosts!.slice(
     POSTS_PER_PAGE * (currentPage - 1),
     POSTS_PER_PAGE * currentPage
   );
 
-  const tags = getAllTags(filteredPosts);
+  const tags = getAllTags(sortedPosts!);
   const sortedTags = sortTagsByCount(tags);
 
   const createHref = (path: string) => `/${locale}${path}`;
@@ -66,7 +66,7 @@ export default function BlogPage({ searchParams }: BlogPageProps) {
           </p>
         </div>
       </div>
-      <div className="my-4">
+      {/* <div className="my-4">
         <input
           type="text"
           placeholder={"Search"} // Asumiendo que tienes una traducción para el placeholder
@@ -74,7 +74,7 @@ export default function BlogPage({ searchParams }: BlogPageProps) {
           onChange={(e) => setSearchQuery(e.target.value)}
           className="w-full p-2 border border-gray-300 rounded-md"
         />
-      </div>
+      </div> */}
       <div className="grid grid-cols-12 gap-3 mt-8">
         <div className="col-span-12 col-start-1 sm:col-span-8">
           <hr />
