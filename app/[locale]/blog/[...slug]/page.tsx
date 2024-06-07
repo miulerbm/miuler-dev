@@ -48,34 +48,15 @@ export async function generateMetadata({
       url: post.slug,
       images: [
         {
-          url: `${process.env.NEXT_PUBLIC_APP_URL}images/og-image.jpg`,
+          url: `${process.env.NEXT_PUBLIC_APP_URL}images/og-blogpost.jpg`,
           width: 1200,
           height: 630,
           alt: post.title,
         },
       ],
     },
-    // twitter: {
-    //   card: "summary_large_image",
-    //   title: post.title,
-    //   description: post.description,
-    //   images: [`/api/og?${ogSearchParams.toString()}`],
-    // },
   };
 }
-
-// export async function generateStaticParams() {
-//   const enPosts = postsEn.map((post) => ({
-//     slug: post.slugAsParams.split("/"),
-//     locale: "en",
-//   }));
-//   const esPosts = postsEs.map((post) => ({
-//     slug: post.slugAsParams.split("/"),
-//     locale: "es",
-//   }));
-
-//   return [...enPosts, ...esPosts];
-// }
 
 export default async function PostPage({ params }: PostPageProps) {
   const { locale } = params;
