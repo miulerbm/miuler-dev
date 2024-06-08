@@ -32,11 +32,12 @@ function Project({
         )}
 
         <Image
-          className="rounded-lg object-cover"
+          className="rounded-lg object-cover w-full h-auto"
+          priority={true}
           alt={text}
           src={image}
-          width={500}
-          height={375}
+          height={288}
+          width={512}
         />
         <div className="p-4 rounded-lg">
           <div className="text-xl font-medium flex gap-2">
