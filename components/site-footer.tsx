@@ -1,8 +1,16 @@
+"use client";
 import { siteConfig } from "@/config/site";
 import { Mail } from "lucide-react";
 import { Icons } from "./icons";
+import { usePathname } from "next/navigation";
 
 export function SiteFooter() {
+  const pathname = usePathname();
+
+  const locale = pathname.split("/")[1];
+
+  const createHref = (path: string) => `/${locale}${path}`;
+
   return (
     <footer>
       <div className="mb-6 mt-14 flex flex-col items-center">
@@ -25,7 +33,7 @@ export function SiteFooter() {
           </a>
         </div>
         <div className="mb-2 flex space-x-2 text-sm text-muted-foreground hover:scale-110">
-          <a href="/about">{siteConfig.author}</a>
+          <a href={createHref("/about")}>{siteConfig.author}</a>
         </div>
       </div>
     </footer>

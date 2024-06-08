@@ -3,7 +3,7 @@ import { StickyNote } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Button } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
 import {
   CommandDialog,
   CommandEmpty,
@@ -12,6 +12,7 @@ import {
   CommandItem,
   CommandList,
 } from "./ui/command";
+import { cn } from "@/lib/utils";
 
 interface CommandSearchProps {
   locale: string;
@@ -48,9 +49,14 @@ export default function CommandSearch({ locale }: CommandSearchProps) {
     <>
       <Button
         onClick={() => setIsOpen(true)}
-        className="p-2 border border-gray-300 rounded-md hidden md:block"
+        className={cn(
+          buttonVariants({ variant: "outline", size: "lg" }),
+          "items-center text-muted-foreground flex-row justify-center align-middle border rounded-md hidden md:flex"
+        )}
       >
-        {t("searchPosts")} ⌘K
+        {t("searchPosts")}
+        {"..."}
+        <div className="border rounded ml-4 p-1 ">⌘K</div>
       </Button>
       {isOpen && (
         <CommandDialog open={isOpen} onOpenChange={setIsOpen}>

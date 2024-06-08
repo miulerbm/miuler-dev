@@ -48,7 +48,7 @@ export function LangSwitch() {
                   : "text-foreground/50"
               )}
             >
-              {t("english")}
+              English
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem
@@ -64,7 +64,7 @@ export function LangSwitch() {
                   : "text-foreground/50"
               )}
             >
-              {t("spanish")}
+              Español
             </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
