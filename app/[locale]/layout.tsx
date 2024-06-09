@@ -60,9 +60,9 @@ export default function RootLayout({
           <Providers>
             <div className="relative flex min-h-dvh flex-col bg-background">
               <SiteHeader />
-              <PageTransition>
-                <main className="flex-1">{children}</main>
-              </PageTransition>
+              {/* <PageTransition> */}
+              <main className="flex-1">{children}</main>
+              {/* </PageTransition> */}
               <SiteFooter />
             </div>
           </Providers>
