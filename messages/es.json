@@ -16,5 +16,7 @@
   "english": "Inglés",
   "spanish": "Español",
   "searchPosts": "Buscar posts",
-  "noPostsFound": "Sin posts para mostrar"
+  "noPostsFound": "Sin posts para mostrar",
+  "next": "Siguiente",
+  "previous": "Anterior"
 }

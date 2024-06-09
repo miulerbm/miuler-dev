@@ -16,5 +16,7 @@
   "english": "English",
   "spanish": "Spanish",
   "searchPosts": "Search posts",
-  "noPostsFound": "No posts found"
+  "noPostsFound": "No posts found",
+  "next": "Next",
+  "previous": "Previous"
 }
