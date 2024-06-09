@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { ReactNode, useEffect } from "react";
 
 const variants = {
-  hidden: { opacity: 0, y: -10 },
+  hidden: { opacity: 1, y: -10 },
   enter: { opacity: 1, y: 10 },
   //   exit: { opacity: 1, y: 20 },
 };
