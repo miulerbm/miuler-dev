@@ -6,18 +6,20 @@ import { ReactNode } from "react";
 export default function PageTransition({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
+  const variants = {
+    hidden: { opacity: 0, y: -100 },
+    enter: { opacity: 1, y: 0 },
+  };
+
   return (
     <AnimatePresence mode="wait">
       <motion.div
         key={pathname}
-        variants={{
-          initial: { opacity: 1, clipPath: "inset(0% 0% 100% 0%)" },
-          animate: { opacity: 1, clipPath: "inset(0% 0% 0% 0%)" },
-        }}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        transition={{ ease: "easeOut", duration: 2 }}
+        initial="hidden"
+        animate="enter"
+        variants={variants}
+        transition={{ type: "linear" }}
+        className="overflow-hidden"
       >
         {children}
       </motion.div>
