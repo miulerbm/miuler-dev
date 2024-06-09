@@ -1,12 +1,16 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 
 const variants = {
-  hidden: { opacity: 1, y: -10 },
-  enter: { opacity: 1, y: 10 },
-  //   exit: { opacity: 1, y: 20 },
+  hidden: { opacity: 1, y: -20 },
+  enter: { opacity: 1, y: 0 },
+};
+
+const transition = {
+  duration: 0.2,
+  ease: "easeInOut",
 };
 
 export default function PageTransition({ children }: { children: ReactNode }) {
@@ -19,8 +23,7 @@ export default function PageTransition({ children }: { children: ReactNode }) {
         variants={variants}
         initial="hidden"
         animate="enter"
-        // exit="exit"
-        transition={{ type: "linear" }}
+        transition={transition}
       >
         {children}
       </motion.div>
