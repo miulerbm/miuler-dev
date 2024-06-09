@@ -1,29 +1,25 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { ReactNode } from "react";
-
-const variants = {
-  hidden: { opacity: 1, y: -20 },
-  enter: { opacity: 1, y: 0 },
-};
-
-const transition = {
-  duration: 0.2,
-  ease: "easeInOut",
-};
+import { ReactNode, useEffect } from "react";
 
 export default function PageTransition({ children }: { children: ReactNode }) {
   const pathname = usePathname();
+
+  useEffect(() => {
+    window.scrollTo(0, 0); // Desplaza la página hacia arriba
+  }, [pathname]);
 
   return (
     <AnimatePresence mode="wait">
       <motion.div
         key={pathname}
-        variants={variants}
-        initial="hidden"
-        animate="enter"
-        transition={transition}
+        variants={{
+          initial: { opacity: 0, y: 100 },
+          animate: { opacity: 1, y: 0 },
+        }}
+        initial="initial"
+        animate="animate"
       >
         {children}
       </motion.div>
