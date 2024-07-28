@@ -1,43 +1,44 @@
 {
   "data": [
     {
-      "title": "Frontend Developer",
-      "company": "@ Gope",
+      "title": "Fullstack Developer",
+      "company": "Keola Networks",
       "tasks": [
-        "Development with Next.js, React components and CRUD integrations using REST APIs.",
-        "Styling with Tailwind CSS, state management using Redux.",
-        "Multi-platform app development with React Native, using the MVVM pattern and Clean Architecture."
+        "Building web applications using Angular.",
+        "Building cross-platform applications with React Native.",
+        "Integrating REST APIs."
       ],
-      "tags": ["React", "React Native", "TypeScript", "Redux", "Tailwind CSS"],
+      "tags": ["Angular", "React", "React Native", "TypeScript"],
       "year": "2024"
     },
     {
-      "title": "Programmer",
-      "company": "@ Inversac",
+      "title": "Frontend Developer",
+      "company": "Gope",
       "tasks": [
-        "IT support with Python and VBA for scripting and automating tasks.",
-        "Human-machine interfaces development using TIA Portal.",
-        "PLC programming in SCL, LADDER."
+        "Implemented a backoffice application with Next.js and React components, integrating REST APIs for data management.",
+        "Developed an application with React Native using the MVVM pattern and Clean Architecture.",
+        "Styled components with Tailwind CSS and integrated Redux for state management."
       ],
-      "tags": ["SCL", "Ladder", "Tia Portal", "HMI", "PLC"],
+      "tags": ["React", "React Native", "TypeScript", "Redux", "Tailwind CSS"],
       "year": "2023"
     },
     {
-      "title": "Engineering Trainee",
-      "company": "@ STI",
+      "title": "Programmer",
+      "company": "Inversac",
       "tasks": [
-        "Asset management and control using SAP ERP software and VBA in Excel.",
-        "Oral and written english translation for communication with foreign parties."
+        "Provided IT support with Python and VBA for scripting and task automation.",
+        "Developed HMI interfaces with TIA Portal.",
+        "Programmed PLCs using SCL and Ladder."
       ],
-      "tags": ["Python", "SAP ERP", "Shell", "VBA"],
+      "tags": ["SCL", "Ladder", "TIA Portal", "HMI", "PLC"],
       "year": "2022"
     },
     {
       "title": "IT Engineer",
-      "company": "@ E&C",
+      "company": "E&C",
       "tasks": [
-        "Back-office support and scripting with Python, JavaScript and Visual Basic Macros.",
-        "Electromechanical engineering design in CAD software."
+        "Provided back-office support and scripting with Python, JavaScript, and Visual Basic Macros.",
+        "Designed electromechanical engineering using CAD software."
       ],
       "tags": ["Python", "Shell", "JavaScript", "VBA"],
       "year": "2022"
