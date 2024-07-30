@@ -6,7 +6,7 @@
       "tasks": [
         "Desarrollo de aplicaciones web utilizando Angular.",
         "Desarrollo de aplicaciones multiplataforma con React Native.",
-        "Integré APIs REST para gestionar información."
+        "Integración de APIs REST para la gestión de datos."
       ],
       "tags": ["Angular", "React", "React Native", "TypeScript"],
       "year": "2024"
