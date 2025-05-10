@@ -1,14 +1,21 @@
 {
   "data": [
     {
-      "title": "Fullstack Developer",
+      "title": "Frontend Developer",
       "company": "Keola Networks",
       "tasks": [
-        "Building web applications using Angular.",
+        "Building web applications using Next.js/Angular.",
         "Building cross-platform applications with React Native.",
         "Integrating REST APIs."
       ],
-      "tags": ["Angular", "React", "React Native", "TypeScript"],
+      "tags": [
+        "Next.js",
+        "Tailwind CSS",
+        "Angular",
+        "React",
+        "React Native",
+        "TypeScript"
+      ],
       "year": "2024"
     },
     {
@@ -19,7 +26,15 @@
         "Developed an application with React Native using the MVVM pattern and Clean Architecture.",
         "Styled components with Tailwind CSS and integrated Redux for state management."
       ],
-      "tags": ["React", "React Native", "TypeScript", "Redux", "Tailwind CSS"],
+      "tags": [
+        "Next.js",
+        "React",
+        "React Native",
+        "TypeScript",
+        "Redux",
+        "Tailwind CSS",
+        "Jest"
+      ],
       "year": "2023"
     },
     {

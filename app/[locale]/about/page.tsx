@@ -54,7 +54,7 @@ export default function AboutPage() {
         </div>
         <hr className="my-8" />
         <Timeline />
-        <hr className="my-8" />
+        {/* <hr className="my-8" />
         <div className="flex flex-row justify-center">
           <Link
             target="_blank"
@@ -70,7 +70,7 @@ export default function AboutPage() {
           >
             {t("getMyCV")}
           </Link>
-        </div>
+        </div> */}
       </div>
     </div>
   );
