@@ -11,18 +11,19 @@ import PageTransition from "@/components/page-transition";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
+const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? process.env.NEXT_PUBLIC_APP_URL ?? siteConfig.url
+    : "http://localhost:3000";
+
+const url = baseUrl.endsWith("/") ? baseUrl.slice(0, -1) : baseUrl;
+
 export async function generateMetadata({
-  params: { locale },
+  params,
 }: {
   params: { locale: string };
 }): Promise<Metadata> {
-  const baseUrl =
-    process.env.NODE_ENV === "production"
-      ? process.env.NEXT_PUBLIC_APP_URL ?? siteConfig.url
-      : "http://localhost:3000";
-
-  // Remove trailing slash for consistency
-  const url = baseUrl.endsWith("/") ? baseUrl.slice(0, -1) : baseUrl;
+  const { locale } = params;
 
   return {
     title: siteConfig.name,

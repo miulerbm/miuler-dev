@@ -34,6 +34,13 @@ export async function generateMetadata({
     return {};
   }
 
+  const baseUrl =
+    process.env.NODE_ENV === "production"
+      ? process.env.NEXT_PUBLIC_APP_URL ?? siteConfig.url
+      : "http://localhost:3000";
+
+  const url = baseUrl.endsWith("/") ? baseUrl.slice(0, -1) : baseUrl;
+
   const ogSearchParams = new URLSearchParams();
   ogSearchParams.set("title", post.title);
 
@@ -41,19 +48,26 @@ export async function generateMetadata({
     title: post.title,
     description: post.description,
     authors: { name: siteConfig.author },
+    metadataBase: new URL(url),
     openGraph: {
       title: post.title,
       description: post.description,
       type: "article",
-      url: post.slug,
+      url: `${url}/${post.slug}`,
       images: [
         {
-          url: `${process.env.NEXT_PUBLIC_APP_URL}images/og-blogpost.jpg`,
+          url: `${url}/images/og-blogpost.jpg`,
           width: 1200,
           height: 630,
           alt: post.title,
         },
       ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.description,
+      images: [`${url}/images/og-blogpost.jpg`],
     },
   };
 }
