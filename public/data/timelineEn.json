@@ -1,20 +1,43 @@
 {
   "data": [
     {
+      "title": "Senior Software Developer",
+      "company": "NTT DATA",
+      "tasks": [
+        "Acting as technical reference for 3 mobile teams for a Banking client, ensuring proper integration of micro-apps in the Shell application using Callstack Repack.",
+        "Managing artifact lifecycle through GitHub Actions pipelines and JFrog Artifactory, ensuring that each squad's functionalities are efficiently integrated as versioned dependencies.",
+        "Enhanced user experience in AI chat (Conversational Banking) through Optimistic Updates, eliminating perceived latency in real-time interactions."
+      ],
+      "tags": [
+        "React Native",
+        "Microfrontends",
+        "Repack",
+        "TypeScript",
+        "Zustand",
+        "GitHub Actions",
+        "Artifactory",
+        "Jest"
+      ],
+      "year": "2025"
+    },
+    {
       "title": "Frontend Developer",
       "company": "Keola Networks",
       "tasks": [
-        "Building web applications using Next.js/Angular.",
-        "Building cross-platform applications with React Native.",
-        "Integrating REST APIs."
+        "Implemented web pages with Next.js, achieved a 25% reduction in load times through SSR/SSG techniques and optimized components.",
+        "Developed mobile solutions with React Native, optimized state management with Zustand/Redux Toolkit, reducing re-renders by 35%.",
+        "Integrated microservices built with Java Spring Boot, creating robust interfaces for REST APIs and improving communication between architectural layers."
       ],
       "tags": [
         "Next.js",
-        "Tailwind CSS",
         "Angular",
-        "React",
         "React Native",
-        "TypeScript"
+        "TypeScript",
+        "Redux",
+        "Zustand",
+        "Bootstrap",
+        "SCSS",
+        "Git"
       ],
       "year": "2024"
     },
@@ -22,18 +45,17 @@
       "title": "Frontend Developer",
       "company": "Gope",
       "tasks": [
-        "Implemented a backoffice application with Next.js and React components, integrating REST APIs for data management.",
-        "Developed an application with React Native using the MVVM pattern and Clean Architecture.",
-        "Styled components with Tailwind CSS and integrated Redux for state management."
+        "Built a dashboard for managing platform data and resources with Next.js, increasing request response speed by 25% with Redux Toolkit.",
+        "Developed optimized custom hooks to reduce re-renders, using advanced hooks like useMemo and useCallback.",
+        "Integrated serverless REST APIs on AWS and developed a mobile app with React Native following MVVM patterns and Clean Architecture, achieving a 15% codebase reduction."
       ],
       "tags": [
         "Next.js",
-        "React",
         "React Native",
         "TypeScript",
-        "Redux",
         "Tailwind CSS",
-        "Jest"
+        "Redux Toolkit",
+        "Git"
       ],
       "year": "2023"
     },

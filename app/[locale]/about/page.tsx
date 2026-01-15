@@ -54,14 +54,14 @@ export default function AboutPage() {
         </div>
         <hr className="my-8" />
         <Timeline />
-        {/* <hr className="my-8" />
+        <hr className="my-8" />
         <div className="flex flex-row justify-center">
           <Link
             target="_blank"
             href={
               locale.includes("/en")
-                ? "https://drive.google.com/file/d/1mPAxMKi1W5rXFAjojRBVLVBJrM8mCbax/view?usp=sharing"
-                : "https://drive.google.com/file/d/1xtK1Sqqad8LjsJjrbKJXMd02GlJFM6ju/view?usp=sharing"
+                ? "https://drive.google.com/file/d/1YuapfKMDcXafcNTJ5C30zMHwh7CobOxA/view?usp=sharing"
+                : "https://drive.google.com/file/d/18GGEUPK_L0hQJjYHP6xGKWNtfhv6uXsb/view?usp=sharing"
             }
             className={cn(
               buttonVariants({ size: "lg" }),
@@ -70,7 +70,7 @@ export default function AboutPage() {
           >
             {t("getMyCV")}
           </Link>
-        </div> */}
+        </div>
       </div>
     </div>
   );

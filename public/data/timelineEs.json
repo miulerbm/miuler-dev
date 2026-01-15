@@ -1,20 +1,43 @@
 {
   "data": [
     {
+      "title": "Senior Software Developer",
+      "company": "NTT DATA",
+      "tasks": [
+        "Actúo como referente técnico en 3 equipos mobile para cliente de Banca, garantizando la correcta integración de micro-apps en la aplicación Shell mediante Callstack Repack.",
+        "Gestiono el ciclo de vida de los artefactos mediante pipelines de GitHub Actions y JFrog Artifactory, asegurando que las funcionalidades de cada squad se integren como dependencias versionadas de forma eficiente.",
+        "Facilité la experiencia de usuario en el chat con IA (Conversational Banking) mediante Optimistic Updates, eliminando la latencia percibida en interacciones en tiempo real."
+      ],
+      "tags": [
+        "React Native",
+        "Microfrontends",
+        "Repack",
+        "TypeScript",
+        "Zustand",
+        "GitHub Actions",
+        "Artifactory",
+        "Jest"
+      ],
+      "year": "2025"
+    },
+    {
       "title": "Desarrollador Frontend",
       "company": "Keola Networks",
       "tasks": [
-        "Desarrollo de aplicaciones web utilizando Next.js/Angular.",
-        "Desarrollo de aplicaciones multiplataforma con React Native.",
-        "Integración de APIs REST para la gestión de datos."
+        "Implementé páginas web con Next.js, logré reducir un 25% los tiempos de carga mediante técnicas SSR/SSG y componentes optimizados.",
+        "Desarrollé soluciones mobile con React Native, optimicé la gestión de estado con Zustand/Redux Toolkit, reduciendo re-renderizaciones en un 35%.",
+        "Integrué microservicios construidos con Java Spring Boot, creando interfaces robustas para APIs REST y mejorando la comunicación entre capas arquitectónicas."
       ],
       "tags": [
         "Next.js",
-        "Tailwind CSS",
         "Angular",
-        "React",
         "React Native",
-        "TypeScript"
+        "TypeScript",
+        "Redux",
+        "Zustand",
+        "Bootstrap",
+        "SCSS",
+        "Git"
       ],
       "year": "2024"
     },
@@ -22,18 +45,17 @@
       "title": "Desarrollador Frontend",
       "company": "Gope",
       "tasks": [
-        "Implementé una aplicación backoffice con Next.js y componentes de React, integrando APIs REST para la gestión de datos.",
-        "Desarrollé una aplicación con React Native utilizando el patrón MVVM y Clean Architecture.",
-        "Estilicé componentes con Tailwind CSS e integré Redux para la gestión del estado."
+        "Construí un dashboard para la administración de datos y recursos de la plataforma con Next.js, aumentando la velocidad de respuesta de las requests en un 25% con Redux Toolkit.",
+        "Desarollé custom hooks optimizados para reducir las re-renderizaciones, utilizando hooks avanzados como useMemo y useCallback.",
+        "Integré APIs REST serverless en AWS y desarrollé un app mobile con React Native siguiendo patrones MVVM y Clean Architecture logrando reducir el codebase en un 15%."
       ],
       "tags": [
         "Next.js",
-        "React",
         "React Native",
         "TypeScript",
-        "Redux",
         "Tailwind CSS",
-        "Jest"
+        "Redux Toolkit",
+        "Git"
       ],
       "year": "2023"
     },

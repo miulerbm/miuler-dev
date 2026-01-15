@@ -1,10 +1,8 @@
 import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
+import { routing } from "./app/routing";
 
-const nextIntlMiddleware = createMiddleware({
-  locales: ["en", "es"],
-  defaultLocale: "en",
-});
+const nextIntlMiddleware = createMiddleware(routing);
 
 export default function (req: NextRequest): NextResponse {
   return nextIntlMiddleware(req);
